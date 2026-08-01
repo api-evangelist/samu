@@ -1,7 +1,31 @@
 aid: samu
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/samu.png
 name: Samu
-description: Samu is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Samu (samu.ai) is an AI-powered conversation-intelligence and sales-analytics
+  platform built for sales managers and revenue leaders across Latin America. It
+  automatically records and transcribes customer interactions across WhatsApp,
+  phone calls, video calls, Microsoft Teams, and Google Meet, then analyzes them
+  to surface actionable coaching insights. Features include an AI "Samu Score"
+  that evaluates call quality against customizable criteria, custom data
+  extractors (e.g. competitor mentions or company size), analysis using SPICED,
+  BANT, and SANDLER sales frameworks, and auto-generated CRM notes, tasks, and
+  meeting summaries. Samu integrates bidirectionally with HubSpot, Pipedrive,
+  Salesforce, and other CRMs, and emphasizes high-accuracy Spanish-language
+  transcription. Programmatic inbound/outbound API access is available on the
+  Enterprise plan, though no public developer documentation is published. Samu
+  is backed by 500 Global.
 url: https://raw.githubusercontent.com/api-evangelist/samu/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,9 +35,17 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
+- Artificial Intelligence
+- Sales
+- Sales Intelligence
+- Conversation Intelligence
+- CRM
+- Call Recording
+- Analytics
+- Latin America
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,3 +55,20 @@ maintainers:
 common:
 - type: Website
   url: https://samu.ai
+- type: Pricing
+  url: https://samu.ai/precio-samu-ai
+- type: PrivacyPolicy
+  url: https://samu.ai/privacy
+- type: TermsOfService
+  url: https://samu.ai/terminos-y-condiciones
+- type: Login
+  url: https://dashboard.samu.ai
+- type: Blog
+  url: https://primerareunion.com/
+- type: DomainSecurity
+  url: security/samu-domain-security.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
