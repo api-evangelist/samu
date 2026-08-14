@@ -1,15 +1,17 @@
 aid: samu
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: paid
+  onboarding: sales
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Paid plans, API on Enterprise
+  confidence: medium
+  source:
+  - plans
+  - authentication
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/samu.png
 name: Samu
 description: >-
@@ -23,9 +25,12 @@ description: >-
   BANT, and SANDLER sales frameworks, and auto-generated CRM notes, tasks, and
   meeting summaries. Samu integrates bidirectionally with HubSpot, Pipedrive,
   Salesforce, and other CRMs, and emphasizes high-accuracy Spanish-language
-  transcription. Programmatic inbound/outbound API access is available on the
-  Enterprise plan, though no public developer documentation is published. Samu
-  is backed by 500 Global.
+  transcription. Samu publishes a REST API (OpenAPI 3.0.0, "API Samu") at
+  api.samu.ai covering users, meetings, transcriptions and WhatsApp/chat threads,
+  authenticated with an account apiKey header, plus an OAuth-protected hosted MCP
+  server at api.samu.ai/mcp that connects Samu to Claude, ChatGPT and other AI
+  agents. API access is sold on the Enterprise plan and MCP on the Pro plan.
+  Samu is backed by 500 Global.
 url: https://raw.githubusercontent.com/api-evangelist/samu/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -35,7 +40,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 tags:
 - Company
 - Artificial Intelligence
@@ -46,7 +51,74 @@ tags:
 - Call Recording
 - Analytics
 - Latin America
-apis: []
+- Transcription
+- WhatsApp
+- MCP
+- Agent Native
+apis:
+- name: API Samu
+  description: >-
+    REST API for the Samu conversation-intelligence platform. Covers account
+    users, meeting creation and update from externally recorded calls (audio/video
+    URL plus optional transcription), meeting retrieval and transcription
+    retrieval, date-ranged meeting listing with offset pagination, and the chat
+    surface for WhatsApp/HubSpot/email conversation threads, their messages and
+    their daily AI-generated interaction summaries. Authenticated with an account
+    API key sent in the apiKey header. Sold as "API Out / API In" on the
+    Enterprise plan.
+  humanURL: https://api.samu.ai/docs
+  baseURL: https://api.samu.ai
+  tags:
+  - Conversation Intelligence
+  - Sales Intelligence
+  - Meetings
+  - Transcription
+  - WhatsApp
+  - CRM
+  properties:
+  - type: OpenAPI
+    url: openapi/samu-openapi.yml
+  - type: Documentation
+    url: https://api.samu.ai/docs
+  - type: APIReference
+    url: https://api.samu.ai/docs
+  - type: Authentication
+    url: authentication/samu-authentication.yml
+  - type: Conventions
+    url: conventions/samu-conventions.yml
+  - type: DataModel
+    url: data-model/samu-data-model.yml
+  - type: ErrorCatalog
+    url: errors/samu-problem-types.yml
+  - type: Overlay
+    url: overlays/samu-openapi-overlay.yaml
+  - type: RateLimits
+    url: rate-limits/samu-rate-limits.yml
+- name: Samu MCP Server
+  description: >-
+    Hosted, remote MCP server that connects Samu to Claude, ChatGPT and other AI
+    agents, published as a Pro-plan feature. The endpoint answers MCP JSON-RPC
+    over HTTP POST at https://api.samu.ai/mcp and is protected by OAuth 2.1 with
+    dynamic client registration (RFC 7591), PKCE S256 and the mcp:read scope, as
+    advertised by the RFC 8414 authorization-server metadata and the RFC 9728
+    protected-resource metadata on the same host. tools/list is auth-gated, so the
+    live tool schemas could not be enumerated anonymously.
+  humanURL: https://samu.ai/precios
+  baseURL: https://api.samu.ai/mcp
+  tags:
+  - MCP
+  - Agent Native
+  - Conversation Intelligence
+  - Sales Intelligence
+  properties:
+  - type: MCPServer
+    url: mcp/samu-mcp.yml
+  - type: MCPServer
+    url: https://api.samu.ai/mcp
+  - type: ToolCrosswalk
+    url: mcp/samu-tool-crosswalk.yml
+  - type: OAuthScopes
+    url: scopes/samu-scopes.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -56,19 +128,62 @@ common:
 - type: Website
   url: https://samu.ai
 - type: Pricing
-  url: https://samu.ai/precio-samu-ai
+  url: https://samu.ai/precios
 - type: PrivacyPolicy
   url: https://samu.ai/privacy
 - type: TermsOfService
   url: https://samu.ai/terminos-y-condiciones
 - type: Login
   url: https://dashboard.samu.ai
+- type: SignUp
+  url: https://samu.ai/solicitar-una-demo
 - type: Blog
   url: https://primerareunion.com/
+- type: Documentation
+  url: https://api.samu.ai/docs
+- type: APIReference
+  url: https://api.samu.ai/docs
+- type: StatusPage
+  url: https://status.samu.ai/
+- type: Security
+  url: https://samu.ai/politica-de-seguridad-y-manejo-de-informacion
+- type: Compliance
+  url: https://samu.ai/politica-de-seguridad-y-manejo-de-informacion
+- type: LLMsTxt
+  url: llms/samu-llms.txt
+- type: WellKnown
+  url: well-known/samu-well-known.yml
+- type: VulnerabilityDisclosure
+  url: security/samu-vulnerability-disclosure.yml
+- type: Authentication
+  url: authentication/samu-authentication.yml
+- type: OAuthScopes
+  url: scopes/samu-scopes.yml
+- type: Conventions
+  url: conventions/samu-conventions.yml
+- type: Conformance
+  url: conformance/samu-conformance.yml
+- type: ErrorCatalog
+  url: errors/samu-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/samu-lifecycle.yml
+- type: DataModel
+  url: data-model/samu-data-model.yml
+- type: Plans
+  url: plans/samu-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/samu-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/samu-agentic-access.yml
+- type: Overlay
+  url: overlays/samu-openapi-overlay.yaml
 - type: DomainSecurity
   url: security/samu-domain-security.yml
 x-enrichment:
-  date: '2026-07-21'
-  status: minimal
-  artifacts_added: 1
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 26
   pass: local-v1
+
