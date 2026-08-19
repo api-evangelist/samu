@@ -1,0 +1,362 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Samu",
+    "version": "1.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usuarios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtiene la lista de usuarios para la cuenta",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/users",
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene la lista de usuarios para la cuenta"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Meetings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Crea una nueva meeting a partir de la información de la llamada proporcionada. El video tardara unos minutos en ser subido. Se devuelve el id de la nueva meeting.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.samu.ai/api/meeting",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Crea una nueva meeting a partir de la información de la llamada proporcionada. El video tardara unos minutos en ser subido. Se devuelve el id de la nueva meeting."
+        },
+        {
+          "info": {
+            "name": "Obtiene la información de una meeting específica",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/meeting/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID de la meeting"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene la información de una meeting específica"
+        },
+        {
+          "info": {
+            "name": "Actualiza una meeting existente",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.samu.ai/api/meeting/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID de la meeting"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Actualiza una meeting existente"
+        },
+        {
+          "info": {
+            "name": "Obtiene la transcripción de una meeting específica",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/meeting/:id/transcription",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID de la meeting"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene la transcripción de una meeting específica"
+        },
+        {
+          "info": {
+            "name": "Obtiene un listado de meetings en un rango de fechas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/meetings",
+            "params": [
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Fecha de inicio del rango"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "Fecha de fin del rango (máximo 366 días desde dateFrom)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Cantidad máxima de meetings a devolver"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Cantidad de meetings a saltear (paginación)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene un listado de meetings en un rango de fechas"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Threads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List threads (inbox)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/chat/threads",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "threadType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filtra threads cuya última actividad (lastMessageAt) es >= al inicio de este día en UTC (inclusivo por día)."
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filtra threads cuya última actividad (lastMessageAt) es <= al fin de este día en UTC (inclusivo por día)."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List threads (inbox)"
+        },
+        {
+          "info": {
+            "name": "Get a single thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/chat/threads/:threadId",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single thread"
+        },
+        {
+          "info": {
+            "name": "List messages in a thread (paginated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/chat/threads/:threadId/messages",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Solo mensajes con sentAt >= al inicio de este día en UTC (inclusivo por día). Acota el historial de threads largos."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Solo mensajes con sentAt <= al fin de este día en UTC (inclusivo por día)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List messages in a thread (paginated)"
+        },
+        {
+          "info": {
+            "name": "Lista las interacciones diarias de un thread (con summary y extractor)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.samu.ai/api/chat/threads/:threadId/interactions",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Solo interacciones con date >= al inicio de este día en UTC (inclusivo por día)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Solo interacciones con date <= al fin de este día en UTC (inclusivo por día)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Máximo 200"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apiKey",
+              "value": "{{apiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Lista las interacciones diarias de un thread (con summary y extractor)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

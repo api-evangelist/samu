@@ -1,0 +1,37 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.samu.ai/.well-known/oauth-authorization-server
+note: >-
+  Samu's OpenAPI declares only an apiKey scheme and has no oauth2 flows, so
+  derive-oauth-scopes.py found nothing. The OAuth surface is real but lives
+  entirely in the MCP authorization server metadata on api.samu.ai, which is
+  served anonymously and is captured verbatim in well-known/. Samu publishes no
+  human-readable scope reference page.
+schemes:
+- name: MCP OAuth 2.1
+  source: well-known/samu-oauth-authorization-server.json
+  issuer: https://api.samu.ai
+  protected_resource: https://api.samu.ai/mcp
+  dynamic_client_registration: https://api.samu.ai/oauth/register
+  code_challenge_methods: [S256]
+  token_endpoint_auth_methods: [none]
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.samu.ai/oauth/authorize
+    tokenUrl: https://api.samu.ai/oauth/token
+    revocationUrl: https://api.samu.ai/oauth/revoke
+  - flow: refreshToken
+    tokenUrl: https://api.samu.ai/oauth/token
+scopes:
+- scope: mcp:read
+  description: >-
+    The only scope advertised in scopes_supported. Read access for MCP clients to
+    the Samu MCP server. Samu publishes no per-scope description; this is the
+    scope string verbatim from the authorization-server metadata.
+  flows: [authorizationCode]
+  sources: [well-known/samu-oauth-authorization-server.json]
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://api.samu.ai/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json

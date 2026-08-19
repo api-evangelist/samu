@@ -1,0 +1,74 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/samu-openapi.yml
+note: >-
+  Samu ships BOTH a REST API and a hosted MCP server on the same host
+  (api.samu.ai), so the crosswalk is emitted. The MCP tool list is OAuth-gated
+  (tools/list returns 401 MCP_UNAUTHORIZED) and Samu publishes no tool names in
+  its docs, pricing page or llms.txt. crosswalk[] is therefore EMPTY by design:
+  with zero observed tool names there is nothing to bind, and naming plausible
+  tools would fabricate the server's contract. rest_only[] below is the complete,
+  real REST surface, and is what an authenticated re-run should be diffed against.
+surfaces:
+  openapi:
+    file: openapi/samu-openapi.yml
+    spec: OpenAPI 3.0.0
+    server: https://api.samu.ai
+    auth: apiKey header
+    gated: false
+  mcp:
+    url: https://api.samu.ai/mcp
+    auth: OAuth 2.1 (scope mcp:read)
+    gated: true
+    gate_evidence: 'POST tools/list -> HTTP 401 MCP_UNAUTHORIZED (2026-08-13)'
+  graphql:
+    present: false
+    note: >-
+      https://api.samu.ai/graphql returns 404. dashboard.samu.ai/graphql returns
+      200 but that is the SPA catch-all HTML shell, not a GraphQL endpoint.
+crosswalk: []
+mcp_only: []
+rest_only:
+- capability: Users
+  operations:
+  - method: GET
+    path: /api/users
+    summary: Obtiene la lista de usuarios para la cuenta
+- capability: Meetings
+  operations:
+  - method: POST
+    path: /api/meeting
+    summary: Crea una nueva meeting a partir de la informacion de la llamada proporcionada
+  - method: PUT
+    path: /api/meeting/{id}
+    summary: Actualiza una meeting existente
+  - method: GET
+    path: /api/meeting/{id}
+    summary: Obtiene la informacion de una meeting especifica
+  - method: GET
+    path: /api/meeting/{id}/transcription
+    summary: Obtiene la transcripcion de una meeting especifica
+  - method: GET
+    path: /api/meetings
+    summary: Obtiene un listado de meetings en un rango de fechas
+- capability: Threads (chat)
+  operations:
+  - method: GET
+    path: /api/chat/threads
+    summary: List threads (inbox)
+  - method: GET
+    path: /api/chat/threads/{threadId}
+    summary: Get a single thread
+  - method: GET
+    path: /api/chat/threads/{threadId}/messages
+    summary: List messages in a thread (paginated)
+  - method: GET
+    path: /api/chat/threads/{threadId}/interactions
+    summary: Lista las interacciones diarias de un thread (con summary y extractor)
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_operations_total: 10
+  rest_operations_with_tool: 0
+  blocked_by: mcp-tools-list-oauth-gated

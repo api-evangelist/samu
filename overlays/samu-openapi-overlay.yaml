@@ -1,0 +1,84 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for API Samu
+  version: 1.0.0
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/samu-openapi.yml
+x-note: >-
+  Samu's published spec declares NO operationId on any of its ten operations,
+  which is the single biggest machine-readability gap in the contract: without
+  them, code generators emit method names from paths, Arazzo workflows cannot
+  reference steps, and MCP tool bindings have nothing stable to bind to. This
+  overlay adds an operationId to every operation, plus the missing 401 responses
+  (every operation is secured with ApiKeyAuth yet none declares an auth failure),
+  contact/licence metadata and rate-limit documentation on the one operation that
+  declares a 429. It never mutates openapi/_original/samu-openapi-original.json.
+extends: openapi/samu-openapi.yml
+actions:
+- target: $.info
+  update:
+    contact:
+      name: Samu
+      url: https://samu.ai
+    x-apievangelist-source: https://api.samu.ai/docs
+    x-apievangelist-harvested: '2026-08-13'
+    x-apievangelist-note: >-
+      Spec harvested verbatim from the inline SwaggerUIBundle options.spec object
+      embedded in https://api.samu.ai/docs. Samu serves no standalone
+      openapi.json; /openapi.json on api.samu.ai returns 404.
+- target: $.paths['/api/users'].get
+  update:
+    operationId: listUsers
+- target: $.paths['/api/meeting'].post
+  update:
+    operationId: createMeeting
+- target: $.paths['/api/meeting/{id}'].put
+  update:
+    operationId: updateMeeting
+- target: $.paths['/api/meeting/{id}'].get
+  update:
+    operationId: getMeeting
+- target: $.paths['/api/meeting/{id}/transcription'].get
+  update:
+    operationId: getMeetingTranscription
+- target: $.paths['/api/meetings'].get
+  update:
+    operationId: listMeetings
+- target: $.paths['/api/chat/threads'].get
+  update:
+    operationId: listThreads
+- target: $.paths['/api/chat/threads/{threadId}'].get
+  update:
+    operationId: getThread
+- target: $.paths['/api/chat/threads/{threadId}/messages'].get
+  update:
+    operationId: listThreadMessages
+- target: $.paths['/api/chat/threads/{threadId}/interactions'].get
+  update:
+    operationId: listThreadInteractions
+- target: $.paths[*][?(@.security)].responses
+  update:
+    '401':
+      description: >-
+        Missing or invalid apiKey header. Not declared in the published spec even
+        though every operation is secured with ApiKeyAuth.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+- target: $.paths['/api/meetings'].get.responses['429']
+  update:
+    x-apievangelist-note: >-
+      The only 429 in the spec. No quota, window or RateLimit-*/Retry-After header
+      is documented, so a client cannot back off deterministically.
+- target: $.components.securitySchemes.ApiKeyAuth
+  update:
+    x-apievangelist-note: >-
+      The header is literally named "apiKey" - not Authorization, not X-API-Key.
+      API access is sold on the Enterprise plan; there is no self-serve key issuance.
+- target: $.tags
+  update:
+    x-apievangelist-note: >-
+      Only the "Threads" tag is declared at the document root; the "Meetings" and
+      "Usuarios" tags are used on operations but never declared with a description.

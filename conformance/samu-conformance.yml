@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/samu-openapi.yml
+docs:
+- https://samu.ai/precios
+- https://samu.ai/politica-de-seguridad-y-manejo-de-informacion
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    openapi 3.0.0 document with 10 operations, served inline by the Swagger UI at
+    https://api.samu.ai/docs
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Authorization code + refresh_token flows advertised at
+    /.well-known/oauth-authorization-server for the MCP endpoint
+- id: oauth2-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported ["S256"]
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: https://api.samu.ai/.well-known/oauth-authorization-server returns 200 JSON
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    https://api.samu.ai/.well-known/oauth-protected-resource/mcp returns 200 JSON
+    and is advertised in the WWW-Authenticate challenge on a 401 from the MCP endpoint
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint https://api.samu.ai/oauth/register advertised
+- id: oidc-discovery
+  conforms: partial
+  evidence: >-
+    /.well-known/openid-configuration returns 200 but is byte-identical to the
+    OAuth authorization-server metadata — it advertises no jwks_uri, no
+    userinfo_endpoint, no id_token signing algorithms and no "openid" scope. It is
+    an OAuth AS document served at the OIDC path for MCP client compatibility, not
+    an OpenID Provider.
+- id: mcp
+  conforms: true
+  evidence: >-
+    Hosted MCP server at https://api.samu.ai/mcp answering JSON-RPC over HTTP POST
+    (405 with Allow POST on GET), gated by OAuth per the MCP authorization spec
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a flat {status, message} JSON envelope; no application/problem+json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation policy or Sunset header documented
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every Samu host
+- id: a2a
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 on samu.ai
+    and api.samu.ai
+- id: asyncapi
+  conforms: false
+  evidence: No event, webhook or streaming surface published
+- id: soc2
+  conforms: claimed
+  evidence: >-
+    Samu advertises "Compliance: SOC 2 y seguridad avanzada" and "Acceso a los
+    informes SOC 2 y soporte a tu equipo de seguridad (CISO)" on its Enterprise
+    plan, and displays the AICPA "SOC for service organizations" seal on its
+    security policy page. Reports are available under NDA to Enterprise customers;
+    no public attestation letter or trust center was found, so this is recorded as
+    a published claim, not an independently verified certification.
+  sources:
+  - https://samu.ai/precios
+  - https://samu.ai/politica-de-seguridad-y-manejo-de-informacion
+- id: iso-27001
+  conforms: false
+  evidence: Not claimed anywhere on the site
+- id: gdpr
+  conforms: unknown
+  evidence: >-
+    Privacy policy published at https://samu.ai/privacy; no explicit GDPR or DPA
+    commitment located
+subprocessors:
+- name: Amazon Web Services
+  use: video storage (S3) and MongoDB Atlas
+- name: OpenAI
+  use: AI analysis via the OpenAI API
+source_note: >-
+  Subprocessors and the AES-at-rest / TLS-in-transit claims are published on
+  https://samu.ai/politica-de-seguridad-y-manejo-de-informacion

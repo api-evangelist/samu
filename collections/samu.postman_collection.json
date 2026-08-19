@@ -1,0 +1,1770 @@
+{
+  "item": [
+    {
+      "id": "af81330c-dc95-4c33-b48f-03f040271410",
+      "name": "Threads",
+      "description": {
+        "content": "Conversaciones (threads/messages/interactions) de WhatsApp y otros providers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "136d4e19-0ff5-42c7-910d-44df2fce8a1b",
+          "name": "List threads (inbox)",
+          "request": {
+            "name": "List threads (inbox)",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "chat",
+                "threads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "threadType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<dateTime>",
+                  "description": "Filtra threads cuya última actividad (lastMessageAt) es >= al inicio de este día en UTC (inclusivo por día)."
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<dateTime>",
+                  "description": "Filtra threads cuya última actividad (lastMessageAt) es <= al fin de este día en UTC (inclusivo por día)."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c133ef4-ea25-41d7-a240-04d2e9f000bd",
+              "name": "Thread page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "chat",
+                    "threads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "threadType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"owner\": {\n        \"id\": \"string\",\n        \"email\": \"string\",\n        \"name\": \"string\",\n        \"lastName\": \"string\"\n      },\n      \"title\": \"string\",\n      \"provider\": \"<string>\",\n      \"threadType\": \"<string>\",\n      \"lastMessageAt\": \"1968-11-30T00:31:18.304Z\",\n      \"contacts\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"lastName\": \"string\",\n          \"phone\": \"string\",\n          \"mobilePhone\": \"string\",\n          \"email\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"lastName\": \"string\",\n          \"phone\": \"string\",\n          \"mobilePhone\": \"string\",\n          \"email\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"owner\": {\n        \"id\": \"string\",\n        \"email\": \"string\",\n        \"name\": \"string\",\n        \"lastName\": \"string\"\n      },\n      \"title\": \"string\",\n      \"provider\": \"<string>\",\n      \"threadType\": \"<string>\",\n      \"lastMessageAt\": \"1969-11-18T13:04:37.891Z\",\n      \"contacts\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"lastName\": \"string\",\n          \"phone\": \"string\",\n          \"mobilePhone\": \"string\",\n          \"email\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"lastName\": \"string\",\n          \"phone\": \"string\",\n          \"mobilePhone\": \"string\",\n          \"email\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"2020-05-10T18:02:28.156Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ad97232-bd1c-41f8-a6dd-b79804a0c5fd",
+          "name": "Get a single thread",
+          "request": {
+            "name": "Get a single thread",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "chat",
+                "threads",
+                ":threadId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "threadId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f8e0b34-0ef7-44b2-86a0-7205c122eb97",
+              "name": "Thread",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "chat",
+                    "threads",
+                    ":threadId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "threadId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"owner\": {\n    \"id\": \"string\",\n    \"email\": \"string\",\n    \"name\": \"string\",\n    \"lastName\": \"string\"\n  },\n  \"title\": \"string\",\n  \"provider\": \"<string>\",\n  \"threadType\": \"<string>\",\n  \"lastMessageAt\": \"2025-06-07T21:36:43.024Z\",\n  \"contacts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"lastName\": \"string\",\n      \"phone\": \"string\",\n      \"mobilePhone\": \"string\",\n      \"email\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"lastName\": \"string\",\n      \"phone\": \"string\",\n      \"mobilePhone\": \"string\",\n      \"email\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57bcea25-f1e2-4517-b33a-25be9aef9134",
+          "name": "List messages in a thread (paginated)",
+          "request": {
+            "name": "List messages in a thread (paginated)",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "chat",
+                "threads",
+                ":threadId",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<dateTime>",
+                  "description": "Solo mensajes con sentAt >= al inicio de este día en UTC (inclusivo por día). Acota el historial de threads largos."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "Solo mensajes con sentAt <= al fin de este día en UTC (inclusivo por día)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "threadId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d0d42a12-c7a3-46b9-9002-a522cb239a9d",
+              "name": "Message page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "chat",
+                    "threads",
+                    ":threadId",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "threadId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"direction\": \"inbound\",\n      \"sender\": {\n        \"kind\": \"user\",\n        \"contactId\": \"string\",\n        \"userId\": \"string\"\n      },\n      \"sentAt\": \"2021-11-22T19:23:06.493Z\",\n      \"content\": {\n        \"type\": \"document\",\n        \"text\": \"string\"\n      },\n      \"attachments\": [\n        {\n          \"type\": \"string\",\n          \"filename\": \"string\",\n          \"mime\": \"string\",\n          \"size\": 2831.8352384728973\n        },\n        {\n          \"type\": \"string\",\n          \"filename\": \"string\",\n          \"mime\": \"string\",\n          \"size\": 7878.25947076526\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"direction\": \"outbound\",\n      \"sender\": {\n        \"kind\": \"user\",\n        \"contactId\": \"string\",\n        \"userId\": \"string\"\n      },\n      \"sentAt\": \"2004-01-22T15:17:34.659Z\",\n      \"content\": {\n        \"type\": \"image\",\n        \"text\": \"string\"\n      },\n      \"attachments\": [\n        {\n          \"type\": \"string\",\n          \"filename\": \"string\",\n          \"mime\": \"string\",\n          \"size\": 7925.138186966161\n        },\n        {\n          \"type\": \"string\",\n          \"filename\": \"string\",\n          \"mime\": \"string\",\n          \"size\": 4559.631612525542\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"2015-01-01T23:00:45.027Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26f207b5-ae3b-4359-b0aa-281795e8edf5",
+          "name": "Lista las interacciones diarias de un thread (con summary y extractor)",
+          "request": {
+            "name": "Lista las interacciones diarias de un thread (con summary y extractor)",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "chat",
+                "threads",
+                ":threadId",
+                "interactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<dateTime>",
+                  "description": "Solo interacciones con date >= al inicio de este día en UTC (inclusivo por día)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "Solo interacciones con date <= al fin de este día en UTC (inclusivo por día)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "50",
+                  "description": "Máximo 200"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "threadId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "62b9c78b-8da7-4147-af69-34ae6730d746",
+              "name": "Página de interacciones diarias",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "chat",
+                    "threads",
+                    ":threadId",
+                    "interactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "threadId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"date\": \"2002-08-18T13:22:23.376Z\",\n      \"summary\": \"string\",\n      \"extractor\": {},\n      \"actionItems\": [\n        {\n          \"id\": \"string\",\n          \"description\": \"string\",\n          \"status\": \"string\",\n          \"dueAt\": \"2017-03-31T21:15:09.050Z\",\n          \"resolvedAt\": \"2016-11-16T23:03:51.107Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"description\": \"string\",\n          \"status\": \"string\",\n          \"dueAt\": \"1988-10-02T21:49:09.434Z\",\n          \"resolvedAt\": \"2025-07-12T06:04:16.225Z\"\n        }\n      ],\n      \"status\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"date\": \"1970-06-27T09:11:20.881Z\",\n      \"summary\": \"string\",\n      \"extractor\": {},\n      \"actionItems\": [\n        {\n          \"id\": \"string\",\n          \"description\": \"string\",\n          \"status\": \"string\",\n          \"dueAt\": \"1982-03-29T18:24:05.949Z\",\n          \"resolvedAt\": \"2015-01-27T12:40:05.172Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"description\": \"string\",\n          \"status\": \"string\",\n          \"dueAt\": \"1952-06-12T10:57:11.184Z\",\n          \"resolvedAt\": \"1977-07-25T17:14:48.688Z\"\n        }\n      ],\n      \"status\": \"string\"\n    }\n  ],\n  \"total\": 8831,\n  \"page\": 8949,\n  \"perPage\": 5631\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7a00bf31-56ae-445a-9462-d1bfa927ede6",
+      "name": "Usuarios",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4e8087c8-821a-4c0d-8d57-389ef24ab037",
+          "name": "Obtiene la lista de usuarios para la cuenta",
+          "request": {
+            "name": "Obtiene la lista de usuarios para la cuenta",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "53796da5-5cc7-4a73-a24f-a19ed7b42642",
+              "name": "Lista de usuarios",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"enabled\": true,\n    \"image\": \"string\",\n    \"lang\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"enabled\": false,\n    \"image\": \"string\",\n    \"lang\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfb1195d-3089-4e7b-ae26-54c16414625a",
+              "name": "Error en la solicitud",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e28999e1-98ee-43b0-9e30-2efec55a6acb",
+      "name": "Meetings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "30b901a8-3d7a-4c52-8ae0-d66dd3cb41e0",
+          "name": "Crea una nueva meeting a partir de la información de la llamada proporcionada. El video tardara unos minutos en ser subido. Se devuelve el id de la nueva meeting.",
+          "request": {
+            "name": "Crea una nueva meeting a partir de la información de la llamada proporcionada. El video tardara unos minutos en ser subido. Se devuelve el id de la nueva meeting.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "meeting"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"eventId\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"hostEmail\": \"<string>\",\n  \"conferenceId\": \"<string>\",\n  \"dateFrom\": \"<dateTime>\",\n  \"dateTo\": \"<dateTime>\",\n  \"media\": \"<string>\",\n  \"users\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"stakeholders\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"transcription\": {\n    \"messages\": [\n      {\n        \"id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"participantId\": \"<integer>\",\n        \"startAt\": \"<number>\",\n        \"endAt\": \"<number>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"participantId\": \"<integer>\",\n        \"startAt\": \"<number>\",\n        \"endAt\": \"<number>\"\n      }\n    ],\n    \"participants\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "186151b9-7b1c-45c2-a64c-f98c7b71739c",
+              "name": "Meeting creada exitosamente",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"eventId\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"hostEmail\": \"<string>\",\n  \"conferenceId\": \"<string>\",\n  \"dateFrom\": \"<dateTime>\",\n  \"dateTo\": \"<dateTime>\",\n  \"media\": \"<string>\",\n  \"users\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"stakeholders\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"transcription\": {\n    \"messages\": [\n      {\n        \"id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"participantId\": \"<integer>\",\n        \"startAt\": \"<number>\",\n        \"endAt\": \"<number>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"participantId\": \"<integer>\",\n        \"startAt\": \"<number>\",\n        \"endAt\": \"<number>\"\n      }\n    ],\n    \"participants\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"location\": {\n    \"latitude\": 37.7897442,\n    \"longitude\": -122.3998086\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e223e75a-547e-47a2-802d-80c58abf1ac7",
+              "name": "Error en la solicitud",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"eventId\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"hostEmail\": \"<string>\",\n  \"conferenceId\": \"<string>\",\n  \"dateFrom\": \"<dateTime>\",\n  \"dateTo\": \"<dateTime>\",\n  \"media\": \"<string>\",\n  \"users\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"stakeholders\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"transcription\": {\n    \"messages\": [\n      {\n        \"id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"participantId\": \"<integer>\",\n        \"startAt\": \"<number>\",\n        \"endAt\": \"<number>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"participantId\": \"<integer>\",\n        \"startAt\": \"<number>\",\n        \"endAt\": \"<number>\"\n      }\n    ],\n    \"participants\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"location\": {\n    \"latitude\": 37.7897442,\n    \"longitude\": -122.3998086\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2db1e26c-0506-4b5b-95d2-cecc0e4368dc",
+          "name": "Actualiza una meeting existente",
+          "request": {
+            "name": "Actualiza una meeting existente",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "meeting",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID de la meeting"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"hostEmail\": \"<string>\",\n  \"stakeholders\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"dateFrom\": \"<dateTime>\",\n  \"dateTo\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8988d60a-8fa9-4f20-a670-1f955ecfce15",
+              "name": "Meeting actualizada exitosamente",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID de la meeting"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"hostEmail\": \"<string>\",\n  \"stakeholders\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"dateFrom\": \"<dateTime>\",\n  \"dateTo\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec14213c-897c-4288-8d3d-8e3ab5854000",
+              "name": "Error en la solicitud",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID de la meeting"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"hostEmail\": \"<string>\",\n  \"stakeholders\": [\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"providerId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"dateFrom\": \"<dateTime>\",\n  \"dateTo\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad0cbb65-5ada-4e1c-8ce2-8d48371567bf",
+          "name": "Obtiene la información de una meeting específica",
+          "request": {
+            "name": "Obtiene la información de una meeting específica",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "meeting",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID de la meeting"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6502bcf7-375b-438b-a424-4f54eb260cf0",
+              "name": "Información de la meeting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID de la meeting"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"eventId\": \"string\",\n  \"provider\": \"<string>\",\n  \"hostEmail\": \"string\",\n  \"conferenceId\": \"string\",\n  \"stakeholders\": [\n    \"string\",\n    \"string\"\n  ],\n  \"dateFrom\": \"2022-08-05T08:54:08.338Z\",\n  \"dateTo\": \"2021-06-06T19:24:27.958Z\",\n  \"media\": \"string\",\n  \"duration\": 6890,\n  \"users\": [\n    \"string\",\n    \"string\"\n  ],\n  \"score\": {\n    \"evaluables\": {},\n    \"score\": 6447.399827259155,\n    \"feedback\": \"string\"\n  },\n  \"extractor\": {},\n  \"callType\": {\n    \"_id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"deal\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"amount\": 3926.843736481034,\n    \"stage\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16176b3e-59a6-4446-8a94-6d17eba5946a",
+              "name": "Error en la solicitud",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID de la meeting"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afd37066-f92d-412f-b0e8-20f56996f09c",
+              "name": "Meeting no encontrada",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID de la meeting"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33198eb4-770c-494d-84e7-e707082c2324",
+          "name": "Obtiene la transcripción de una meeting específica",
+          "request": {
+            "name": "Obtiene la transcripción de una meeting específica",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "meeting",
+                ":id",
+                "transcription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID de la meeting"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dfcc71b9-88b3-42b9-86b2-f680de3359c8",
+              "name": "Transcripción de la meeting",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting",
+                    ":id",
+                    "transcription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID de la meeting"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"text\": \"string\",\n    \"date\": \"2004-02-21T03:01:20.864Z\",\n    \"speaker\": \"string\"\n  },\n  {\n    \"text\": \"string\",\n    \"date\": \"2012-03-18T00:54:11.677Z\",\n    \"speaker\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36256b52-b634-4e85-9e09-a2d982b47fba",
+              "name": "Error en la solicitud",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meeting",
+                    ":id",
+                    "transcription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID de la meeting"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d34c43e-88c0-463b-8335-4651cb8c51eb",
+          "name": "Obtiene un listado de meetings en un rango de fechas",
+          "request": {
+            "name": "Obtiene un listado de meetings en un rango de fechas",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "meetings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<dateTime>",
+                  "description": "(Required) Fecha de inicio del rango"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<dateTime>",
+                  "description": "(Required) Fecha de fin del rango (máximo 366 días desde dateFrom)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Cantidad máxima de meetings a devolver"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Cantidad de meetings a saltear (paginación)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6c786b0-8903-4b51-9e46-0880f4bdf234",
+              "name": "Listado de meetings. El header X-Total-Count indica el total de meetings en el rango (sin paginar).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total de meetings en el rango de fechas",
+                  "key": "X-Total-Count",
+                  "value": "5540"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"eventId\": \"string\",\n    \"provider\": \"<string>\",\n    \"hostEmail\": \"string\",\n    \"conferenceId\": \"string\",\n    \"stakeholders\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dateFrom\": \"1952-12-21T05:04:45.025Z\",\n    \"dateTo\": \"1992-05-02T00:41:09.754Z\",\n    \"media\": \"string\",\n    \"duration\": 9202,\n    \"users\": [\n      \"string\",\n      \"string\"\n    ],\n    \"score\": {\n      \"evaluables\": {},\n      \"score\": 1666.6656264067904,\n      \"feedback\": \"string\"\n    },\n    \"extractor\": {},\n    \"callType\": {\n      \"_id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"deal\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"amount\": 6990.170187442831,\n      \"stage\": \"string\"\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"eventId\": \"string\",\n    \"provider\": \"<string>\",\n    \"hostEmail\": \"string\",\n    \"conferenceId\": \"string\",\n    \"stakeholders\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dateFrom\": \"1970-03-21T03:49:25.780Z\",\n    \"dateTo\": \"2019-04-30T02:30:00.694Z\",\n    \"media\": \"string\",\n    \"duration\": 1895,\n    \"users\": [\n      \"string\",\n      \"string\"\n    ],\n    \"score\": {\n      \"evaluables\": {},\n      \"score\": 5722.491938843218,\n      \"feedback\": \"string\"\n    },\n    \"extractor\": {},\n    \"callType\": {\n      \"_id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"deal\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"amount\": 8370.179301265958,\n      \"stage\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46acbe29-d615-4ef4-b40f-106f50d1f9ee",
+              "name": "Error en la solicitud",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Error message\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfd4dd90-d7be-4c53-bc4c-12cc13820969",
+              "name": "Too Many Requests - Rate limit excedido",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "meetings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.samu.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "16b78059-92d5-4b28-a9bd-2a1dd2cbeaab",
+    "name": "API Samu",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentación de la API de Samu.ai",
+      "type": "text/plain"
+    }
+  }
+}

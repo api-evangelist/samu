@@ -1,0 +1,70 @@
+generated: '2026-08-13'
+method: searched
+source: https://samu.ai/precios
+currency: USD
+billing_period: monthly
+plan_count: 3
+note: >-
+  Prices are published openly in USD per month with per-seat overage. There is no
+  free tier and no self-serve API sign-up: API access (API Out / API In) is an
+  Enterprise-only feature and the MCP integration starts at Pro. A 90-day
+  money-back guarantee ("Garantia 90 dias") is offered in place of a free trial.
+plans:
+- name: Growth
+  price: 150
+  currency: USD
+  period: month
+  included_users: 3
+  overage: {extra_user: 40, currency: USD, period: month}
+  limits:
+    manual_recording_upload: 5 hrs/user/month
+    teams: up to 3
+  included:
+  - Integracion con WhatsApp, videollamadas y llamadas telefonicas
+  - Grabacion ilimitada
+  - Integracion basica con el CRM (notas y resumenes de reunion)
+  - Samu Score
+  - Observadores ilimitados
+  api_access: false
+  mcp_access: false
+- name: Pro
+  price: 250
+  currency: USD
+  period: month
+  included_users: 5
+  overage: {extra_user: 49, currency: USD, period: month}
+  limits:
+    manual_recording_upload: 20 hrs/user/month
+    teams: unlimited
+  included:
+  - Todo Growth
+  - Integracion avanzada con el CRM
+  - Equipos + asistente de videollamada personalizable
+  - Carga manual de grabaciones (Zoom, Meet, grabaciones propias)
+  - MCP - Conecta Samu con Claude, ChatGPT u otros agentes de IA
+  api_access: false
+  mcp_access: true
+- name: Enterprise
+  price: 900
+  currency: USD
+  period: month
+  included_users: 15
+  overage: {extra_user: 55, currency: USD, period: month}
+  included:
+  - Todo Pro
+  - Roles y permisos personalizables
+  - Soporte premium (Slack, CSM asignado)
+  - Reportes del equipo de data
+  - API Out - Envio automatico de notas, insights y metricas a otros sistemas
+  - API In - Enriquece el analisis con informacion externa
+  - Compliance SOC 2 y seguridad avanzada
+  - Acceso a los informes SOC 2 y soporte a tu equipo de seguridad (CISO)
+  api_access: true
+  mcp_access: true
+trial:
+  free_trial: false
+  guarantee: Garantia 90 dias - money-back guarantee with personalized onboarding
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://samu.ai/precios
+  http_status: 200

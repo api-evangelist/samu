@@ -1,0 +1,77 @@
+generated: '2026-08-13'
+method: searched
+source: live probes of every Samu host on 2026-08-13
+note: >-
+  api.samu.ai serves real RFC 8414 / OIDC discovery metadata and RFC 9728
+  protected-resource metadata for its MCP endpoint — the OAuth surface that
+  guards https://api.samu.ai/mcp. The marketing site (samu.ai, Webflow) answers
+  every /.well-known/* path with a 404 HTML page reading "Invalid .well-known
+  request". dashboard.samu.ai is a single-page app whose catch-all returns HTTP
+  200 with the app HTML shell for every path probed, including /.well-known/* —
+  those 200s are NOT documents and are recorded as misses.
+hosts:
+- host: https://api.samu.ai
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: samu-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: samu-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource/mcp
+    status: 200
+    content_type: application/json
+    file: samu-oauth-protected-resource-mcp.json
+    note: >-
+      Discovered from the WWW-Authenticate challenge returned by POST
+      https://api.samu.ai/mcp — Bearer resource_metadata="https://api.samu.ai/.well-known/oauth-protected-resource/mcp"
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://samu.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://dashboard.samu.ai
+  note: >-
+    SPA catch-all. Every path returns HTTP 200 with text/html (the dashboard app
+    shell), including /openapi.json, /swagger.json and every /.well-known/* path.
+    No document was served; all recorded as misses.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    document: false
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    document: false
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    document: false

@@ -1,0 +1,54 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/samu-openapi.yml
+docs: https://api.samu.ai/docs
+note: >-
+  Two distinct auth models on one host. The REST API (api.samu.ai/api/*) uses a
+  static account API key in a header literally named "apiKey" (not Authorization,
+  not X-API-Key) — worth noting because it is unusual and easy to get wrong. The
+  MCP endpoint (api.samu.ai/mcp) uses OAuth 2.1 bearer tokens with dynamic client
+  registration and PKCE, advertised via RFC 8414 metadata; it rejects anonymous
+  calls with 401 MCP_UNAUTHORIZED and a WWW-Authenticate challenge pointing at
+  its RFC 9728 protected-resource metadata. Samu publishes no page describing how
+  to obtain an API key; the pricing page places API access on the Enterprise plan
+  and MCP on the Pro plan, so provisioning is sales-mediated.
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+  - refreshToken
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: apiKey
+  description: API key de la cuenta
+  applies_to: https://api.samu.ai/api/* (all 10 REST operations)
+  sources:
+  - openapi/samu-openapi.yml
+- name: MCP OAuth 2.1
+  type: oauth2
+  bearer_methods: [header]
+  applies_to: https://api.samu.ai/mcp
+  issuer: https://api.samu.ai
+  authorizationUrl: https://api.samu.ai/oauth/authorize
+  tokenUrl: https://api.samu.ai/oauth/token
+  registrationUrl: https://api.samu.ai/oauth/register
+  revocationUrl: https://api.samu.ai/oauth/revoke
+  code_challenge_methods: [S256]
+  token_endpoint_auth_methods: [none]
+  scopes: [mcp:read]
+  flows: [authorizationCode, refreshToken]
+  sources:
+  - well-known/samu-oauth-authorization-server.json
+  - well-known/samu-oauth-protected-resource-mcp.json
+provisioning:
+  self_serve: false
+  note: >-
+    No public sign-up for API credentials. Pricing page sells "acceso a la API"
+    (API Out / API In) on Enterprise ($900/mo) and MCP on Pro ($250/mo).
+  source: https://samu.ai/precios

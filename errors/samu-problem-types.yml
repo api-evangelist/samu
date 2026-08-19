@@ -1,0 +1,68 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/samu-openapi.yml
+format: custom-json
+note: >-
+  NOT RFC 9457. The REST API returns a flat JSON envelope
+  {"status":"error","message":"..."} declared as the ErrorResponse schema; there
+  is no type URI, no title/detail split and no application/problem+json media
+  type. The MCP endpoint uses a DIFFERENT and richer envelope observed live:
+  {"success":false,"data":null,"error":{"code":"MCP_UNAUTHORIZED","message":"..."},"meta":{},"timestamp":"..."}.
+  Samu publishes no error-code reference page, so no code registry could be
+  captured — the only error code observed anywhere is MCP_UNAUTHORIZED, seen on a
+  live 401 from the MCP endpoint.
+envelopes:
+- name: ErrorResponse
+  surface: REST (https://api.samu.ai/api/*)
+  media_type: application/json
+  shape:
+    status: string, example "error"
+    message: string, example "Error message"
+  source: openapi/samu-openapi.yml#/components/schemas/ErrorResponse
+- name: MCP error envelope
+  surface: MCP (https://api.samu.ai/mcp)
+  media_type: application/json
+  shape:
+    success: boolean
+    data: 'null'
+    error: '{code, message}'
+    meta: object
+    timestamp: RFC 3339 string
+  source: 'live probe 2026-08-13, HTTP 401'
+problems:
+- status: 400
+  title: Error en la solicitud
+  schema: ErrorResponse
+  source_operations:
+  - GET /api/users
+  - POST /api/meeting
+  - PUT /api/meeting/{id}
+  - GET /api/meeting/{id}
+  - GET /api/meeting/{id}/transcription
+  - GET /api/meetings
+- status: 404
+  title: Meeting no encontrada
+  schema: ErrorResponse
+  source_operations:
+  - GET /api/meeting/{id}
+- status: 429
+  title: Too Many Requests - Rate limit excedido
+  schema: none declared
+  source_operations:
+  - GET /api/meetings
+  note: >-
+    Declared with a description only — no response schema and no rate-limit
+    headers are documented on the 429.
+- status: 401
+  title: Missing or invalid MCP access token
+  code: MCP_UNAUTHORIZED
+  schema: MCP error envelope
+  source_operations:
+  - POST /api/mcp (MCP JSON-RPC)
+  method: probed
+  note: Observed live 2026-08-13; not present in any published spec.
+gaps:
+- No 401/403 responses are declared on ANY of the 10 REST operations even though
+  every one of them is secured with ApiKeyAuth.
+- No 500/5xx responses declared anywhere in the spec.
+- No error code registry or error reference page published.

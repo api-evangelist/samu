@@ -1,0 +1,49 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.samu.ai/docs
+versioning:
+  scheme: spec-version-only
+  current: 1.0.1
+  note: >-
+    info.version in the OpenAPI is 1.0.1, but the API itself is UNVERSIONED at the
+    URL: paths are /api/users, /api/meeting, /api/chat/threads — no /v1/ segment,
+    no version header, no version query parameter. There is no published
+    versioning policy, so a consumer has no contract for how a breaking change
+    would be signalled.
+  source: openapi/samu-openapi.yml
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No deprecation policy published, no RFC 8594 Sunset/Deprecation header
+    documented, and no operation in the spec carries deprecated true.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No published SLA. The Enterprise plan advertises "Soporte premium (Slack, CSM
+    asignado)" but no numeric uptime commitment.
+status_page: https://status.samu.ai/
+status_page_detail:
+  provider: Better Stack
+  company_name: Samu.ai
+  subdomain: samuai
+  custom_domain: status.samu.ai
+  components: [Application]
+  aggregate_state_at_probe: operational
+  created: '2025-06-04'
+  machine_readable: https://status.samu.ai/index.json
+  verified: probed
+  x-evidence:
+    fetched: '2026-08-13'
+    url: https://status.samu.ai/index.json
+    http_status: 200
+    note: >-
+      Ownership confirmed from the status page's own JSON — company_name
+      "Samu.ai", company_url https://samu.ai, custom_domain status.samu.ai.
+changelog:
+  url: null
+  note: >-
+    No dated changelog published. https://samu.ai/changelog returns 404 and the
+    sitemap (50 URLs) contains no changelog, docs or release-notes page.
+deprecated_operations: []

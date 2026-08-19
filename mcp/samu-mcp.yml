@@ -1,0 +1,64 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://samu.ai/precios
+probe_source: https://api.samu.ai/mcp
+server:
+  name: samu
+  transport: http
+  url: https://api.samu.ai/mcp
+deployment:
+  mode: remote
+  endpoint: https://api.samu.ai/mcp
+  auth: oauth
+  verified: probed
+evidence:
+  - fetched: '2026-08-13'
+    method: POST
+    url: https://api.samu.ai/mcp
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    www_authenticate: >-
+      Bearer resource_metadata="https://api.samu.ai/.well-known/oauth-protected-resource/mcp"
+    response: >-
+      {"success":false,"data":null,"error":{"code":"MCP_UNAUTHORIZED","message":"Missing
+      or invalid MCP access token"}}
+  - fetched: '2026-08-13'
+    method: GET
+    url: https://api.samu.ai/mcp
+    http_status: 405
+    allow: POST
+    note: The endpoint accepts POST only — MCP JSON-RPC over HTTP, no SSE endpoint found.
+  - fetched: '2026-08-13'
+    url: https://samu.ai/precios
+    http_status: 200
+    quote: >-
+      "MCP — Conecta Samu con Claude, ChatGPT u otros agentes de IA" — published
+      as an included feature of the Pro ($250/mo) and Enterprise ($900/mo) plans.
+authorization:
+  model: OAuth 2.1 authorization code + PKCE
+  authorization_server: https://api.samu.ai
+  authorization_endpoint: https://api.samu.ai/oauth/authorize
+  token_endpoint: https://api.samu.ai/oauth/token
+  registration_endpoint: https://api.samu.ai/oauth/register
+  revocation_endpoint: https://api.samu.ai/oauth/revoke
+  dynamic_client_registration: true
+  code_challenge_methods: [S256]
+  scopes: [mcp:read]
+  bearer_methods: [header]
+  source: well-known/samu-oauth-authorization-server.json
+tools:
+  status: gated
+  note: >-
+    tools/list requires a valid MCP access token, so the live tool set and its
+    inputSchemas could not be enumerated anonymously. Samu publishes no tool list
+    in its docs and its llms.txt does not enumerate MCP tools, so NO tool names
+    are recorded here — inventing them would fabricate the server's contract. The
+    advertised scope is read-only (mcp:read), which is consistent with a
+    retrieval-shaped tool set over the same meetings/threads data the REST API
+    exposes, but that is an inference and is not recorded as fact.
+  enumeration_requires: authenticated introspection
+related:
+  rest_api: openapi/samu-openapi.yml
+  crosswalk: mcp/samu-tool-crosswalk.yml
+  scopes: scopes/samu-scopes.yml

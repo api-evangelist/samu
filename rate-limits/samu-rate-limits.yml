@@ -1,0 +1,43 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/samu-openapi.yml
+limit_count: 0
+note: >-
+  Samu documents NO numeric rate limit anywhere. The only rate-limit signal in the
+  entire published surface is an undocumented 429 declared on a single operation
+  (GET /api/meetings, "Too Many Requests - Rate limit excedido") with no schema,
+  no window, no quota and no RateLimit-*/Retry-After headers. The other nine
+  operations declare no 429 at all, so a client cannot tell whether they are
+  limited. Recorded as limit_count 0 — an honest zero, not an unmeasured gap.
+  What IS published are per-request result caps, captured under caps[] below;
+  those bound page size, not request rate, and are recorded separately so they are
+  not mistaken for a quota.
+limits: []
+signaling:
+  status_on_exhaustion: 429
+  status_source: openapi/samu-openapi.yml GET /api/meetings
+  headers: []
+  retry_after: false
+  ratelimit_headers: false
+  documented: false
+caps:
+- operation: GET /api/meetings
+  parameter: limit
+  maximum: 500
+  default: 500
+- operation: GET /api/meetings
+  parameter: offset
+  maximum: 10000
+  note: Caps the deepest reachable record at 10500 within a date range.
+- operation: GET /api/meetings
+  parameter: dateTo
+  maximum: 366 days from dateFrom
+- operation: GET /api/chat/threads/{threadId}/interactions
+  parameter: perPage
+  maximum: 200
+  default: 50
+plan_limits:
+  note: >-
+    Seat counts and manual-upload hours are metered per plan (Growth 5 hrs/user/mo,
+    Pro 20 hrs/user/mo) but these are product quotas, not API rate limits.
+  see: plans/samu-plans-pricing.yml

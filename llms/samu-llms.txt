@@ -1,0 +1,36 @@
+# Samu.ai
+
+> Samu es una plataforma de inteligencia artificial para equipos de ventas B2B en Latinoamérica. Escucha cada conversación comercial —llamadas, reuniones y WhatsApp, online y offline—, actualiza el CRM de forma automática y entrega visibilidad real del pipeline y del forecast, liberando a los equipos del trabajo administrativo. El objetivo: que las decisiones comerciales se tomen desde datos reales, no desde planillas cargadas a mano.
+
+## Producto
+- [Inicio](https://samu.ai/): qué hace Samu, para quién y cómo funciona.
+- [Precios](https://samu.ai/precios): planes, qué incluye cada uno y calculadora de ROI.
+- [Solicitar una demo](https://samu.ai/solicitar-una-demo): agendar una demo con onboarding personalizado (sin tarjeta).
+
+## Roles (cómo usa Samu cada perfil)
+- [Vendedor](https://samu.ai/roles/vendedor)
+- [Gerente de Ventas](https://samu.ai/roles/gerente-de-ventas)
+- [VP de Ventas](https://samu.ai/roles/vp-de-ventas)
+- [Sales Ops](https://samu.ai/roles/sales-ops)
+
+## Casos de éxito
+- [Casos de éxito](https://samu.ai/casos-de-exito): resultados reales de clientes en LATAM.
+- [Nubox (Chile)](https://samu.ai/casos-de-exito/nubox)
+- [Zipnova (Argentina)](https://samu.ai/casos-de-exito/zipnova)
+- [LeadSales (México)](https://samu.ai/casos-de-exito/leadsales)
+- [UBITS (Colombia)](https://samu.ai/casos-de-exito/ubits)
+- [Visma (Argentina)](https://samu.ai/casos-de-exito/visma)
+- [Driv.in (Chile)](https://samu.ai/casos-de-exito/drivin)
+
+## Blog
+- [Blog](https://samu.ai/blog): ventas B2B, forecasting, CRM y canales como WhatsApp en LATAM.
+- [Por qué tu forecast siempre está mal y cómo arreglarlo](https://samu.ai/blog/por-que-tu-forecast-siempre-esta-mal-y-como-arreglarlo)
+- [El futuro del forecasting no es un modelo, es una señal](https://samu.ai/blog/el-futuro-del-forecasting-no-es-un-modelo-es-una-senal)
+- [El CRM no es el problema, lo que le pedís que haga sí](https://samu.ai/blog/el-crm-no-es-el-problema-lo-que-le-pedis-que-haga-si)
+- [WhatsApp como canal de ventas en LATAM](https://samu.ai/blog/whatsapp-como-canal-de-ventas-en-latam)
+
+## Legal
+- [Política de privacidad](https://samu.ai/politica-de-privacidad)
+- [Términos y condiciones](https://samu.ai/terminos-y-condiciones)
+- [Política de seguridad y manejo de información](https://samu.ai/politica-de-seguridad-y-manejo-de-informacion)
+- [Aviso de uso limitado (Google)](https://samu.ai/aviso-de-uso-limitado)

@@ -1,0 +1,156 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/samu-openapi.yml
+note: >-
+  Derived from components.schemas $refs and from id-reference fields in the
+  request/response bodies. Samu publishes no object reference page, so no id
+  prefixes or id formats are recorded (every identifier is typed only as `string`
+  in the spec). Two loosely-coupled domains sit under one API: a MEETINGS domain
+  (recorded calls and their transcripts) and a CHAT/THREADS domain (WhatsApp,
+  HubSpot and email conversations). Nothing in the published contract links a
+  thread to a meeting or to a deal, so they cannot be joined by an API consumer.
+domains:
+- name: Meetings
+  entities: [Meeting, Transcription, MeetingTranscriptionLine, User]
+  root_operation: GET /api/meetings
+- name: Threads
+  entities: [ConversationThreadListItem, ConversationMessageItem, ConversationInteractionItem]
+  root_operation: GET /api/chat/threads
+entities:
+- name: User
+  description: A Samu account user (seller/manager). The unit that plans are priced on.
+  fields: [id, name, email, enabled, image, lang]
+  operations: [GET /api/users]
+- name: Meeting
+  description: >-
+    A recorded commercial conversation - call, video meeting or offline recording -
+    plus everything Samu derived from it.
+  fields: [id, name, eventId, provider, hostEmail, conferenceId, stakeholders,
+    dateFrom, dateTo, media, duration, users, score, extractor, callType, deal]
+  operations: [POST /api/meeting, "PUT /api/meeting/{id}", "GET /api/meeting/{id}", GET /api/meetings]
+- name: Transcription
+  description: >-
+    Optional caller-supplied transcript accepted at meeting creation - messages[]
+    with participantId/startAt/endAt plus a participants id-to-name map. Different
+    shape from what the read endpoint returns.
+  fields: [messages, participants]
+  operations: [POST /api/meeting]
+- name: MeetingTranscriptionLine
+  description: >-
+    A single line of the transcript Samu returns - speaker name, text, timestamp.
+    Flattened; it does NOT round-trip the Transcription shape used on write.
+  fields: [text, date, speaker]
+  operations: ["GET /api/meeting/{id}/transcription"]
+- name: ConversationThreadListItem
+  description: A chat conversation (WhatsApp/HubSpot/email), 1:1 or group.
+  fields: [id, owner, title, provider, threadType, lastMessageAt, contacts]
+  operations: [GET /api/chat/threads, "GET /api/chat/threads/{threadId}"]
+- name: ConversationMessageItem
+  description: One message within a thread, inbound or outbound, with attachments.
+  fields: [id, direction, sender, sentAt, content, attachments]
+  operations: ["GET /api/chat/threads/{threadId}/messages"]
+- name: ConversationInteractionItem
+  description: >-
+    A per-day snapshot of a thread carrying Samu's AI summary, the custom
+    extractor output for that day, and derived action items.
+  fields: [id, date, summary, extractor, actionItems, status]
+  operations: ["GET /api/chat/threads/{threadId}/interactions"]
+- name: Deal
+  description: >-
+    CRM opportunity attached to a meeting. Embedded only - there is no deal
+    endpoint, so deals cannot be listed or fetched through this API.
+  fields: [id, name, amount, stage]
+  embedded_in: Meeting
+- name: Score
+  description: The Samu Score for a meeting - numeric score, evaluables and feedback.
+  fields: [evaluables, score, feedback]
+  embedded_in: Meeting
+enumerations:
+- name: Provider
+  values: [GOOGLE, HUBSPOT, MICROSOFT, ZOOM, AIRCALL, ANURA, LAYER7, OFFLINE, IVR, MOBILE]
+  used_by: Meeting.provider
+- name: ChatProvider
+  values: [WHATSAPP, HUBSPOT, EMAIL]
+  used_by: ConversationThreadListItem.provider
+- name: ConversationThreadType
+  values: [dm, group]
+  used_by: ConversationThreadListItem.threadType
+relationships:
+- from: Meeting
+  to: Provider
+  type: belongs_to
+  via: provider
+- from: Meeting
+  to: User
+  type: has_one
+  via: hostEmail
+  note: Joined by EMAIL, not by id - hostEmail must match a registered Samu user.
+- from: Meeting
+  to: User
+  type: has_many
+  via: users
+  note: >-
+    On write, users[] are objects (email/name/phone/providerId). On read, users[]
+    is an array of provider id STRINGS. The write and read shapes differ.
+- from: Meeting
+  to: Stakeholder
+  type: has_many
+  via: stakeholders
+  note: Same write-object / read-string asymmetry as users[].
+- from: Meeting
+  to: MeetingTranscriptionLine
+  type: has_many
+  via: 'path: /api/meeting/{id}/transcription'
+- from: Meeting
+  to: Transcription
+  type: has_one
+  via: transcription
+  note: Write-only, on POST /api/meeting.
+- from: Meeting
+  to: Deal
+  type: has_one
+  via: deal
+- from: Meeting
+  to: Score
+  type: has_one
+  via: score
+- from: ConversationThreadListItem
+  to: ChatProvider
+  type: belongs_to
+  via: provider
+- from: ConversationThreadListItem
+  to: User
+  type: has_one
+  via: owner
+- from: ConversationThreadListItem
+  to: Contact
+  type: has_many
+  via: contacts
+- from: ConversationThreadListItem
+  to: ConversationMessageItem
+  type: has_many
+  via: 'path: /api/chat/threads/{threadId}/messages'
+- from: ConversationThreadListItem
+  to: ConversationInteractionItem
+  type: has_many
+  via: 'path: /api/chat/threads/{threadId}/interactions'
+- from: ConversationMessageItem
+  to: Contact
+  type: belongs_to
+  via: sender.contactId
+  note: >-
+    Resolved client-side - the spec says "Cruzar con thread.contacts para el
+    nombre". Messages carry no denormalized sender name.
+- from: ConversationMessageItem
+  to: User
+  type: belongs_to
+  via: sender.userId
+- from: ConversationInteractionItem
+  to: ActionItem
+  type: has_many
+  via: actionItems
+observations:
+- No entity is linked across the Meetings and Threads domains in the published contract.
+- Identifiers are untyped strings with no documented prefix or format.
+- The extractor object on Meeting and ConversationInteractionItem is account-specific
+  and undescribed, so its keys cannot be modelled from the spec.

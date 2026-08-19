@@ -1,0 +1,32 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/samu-openapi.yml
+note: >-
+  Samu publishes no AGENTS.md or provider-authored skills, and its OpenAPI
+  declares no operationId on any operation, so each step below is grounded in the
+  verbatim METHOD + PATH from the spec rather than an id. Stable operationIds are
+  proposed in overlays/samu-openapi-overlay.yaml.
+skills:
+- file: samu-ingest-external-call.md
+  name: Ingest an externally recorded call into Samu
+  api: openapi/samu-openapi.yml
+  operations:
+  - POST /api/meeting
+  - GET /api/meeting/{id}
+  - GET /api/meeting/{id}/transcription
+  - GET /api/users
+- file: samu-export-meetings.md
+  name: Export a date range of Samu meetings
+  api: openapi/samu-openapi.yml
+  operations:
+  - GET /api/meetings
+  - GET /api/users
+  - GET /api/meeting/{id}/transcription
+- file: samu-read-chat-threads.md
+  name: Read Samu WhatsApp and chat conversation threads
+  api: openapi/samu-openapi.yml
+  operations:
+  - GET /api/chat/threads
+  - GET /api/chat/threads/{threadId}
+  - GET /api/chat/threads/{threadId}/messages
+  - GET /api/chat/threads/{threadId}/interactions

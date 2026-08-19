@@ -1,0 +1,1286 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Samu",
+    "version": "1.0.1",
+    "description": "Documentación de la API de Samu.ai"
+  },
+  "servers": [
+    {
+      "url": "https://api.samu.ai"
+    }
+  ],
+  "paths": {
+    "/api/users": {
+      "get": {
+        "summary": "Obtiene la lista de usuarios para la cuenta",
+        "tags": [
+          "Usuarios"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/meeting": {
+      "post": {
+        "summary": "Crea una nueva meeting a partir de la información de la llamada proporcionada. El video tardara unos minutos en ser subido. Se devuelve el id de la nueva meeting.",
+        "tags": [
+          "Meetings"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nombre de la llamada"
+                  },
+                  "eventId": {
+                    "type": "string",
+                    "description": "ID de la llamada en el provider. De no proporcionarse, se creará de forma automática.",
+                    "required": false
+                  },
+                  "provider": {
+                    "$ref": "#/components/schemas/Provider",
+                    "description": "El origen de la llamada (meets, zoom, etc)",
+                    "required": true
+                  },
+                  "hostEmail": {
+                    "type": "string",
+                    "description": "Email del host de la llamada. Debe ser un mail perteneciente a un usuario registrado en samu."
+                  },
+                  "conferenceId": {
+                    "type": "string",
+                    "description": "ID de la conferencia en el provider. De no proporcionarse, se creará de forma automática."
+                  },
+                  "dateFrom": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Fecha de inicio de la llamada",
+                    "required": true
+                  },
+                  "dateTo": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Fecha de fin de la llamada. De no proporcionarse, se usará la fecha de inicio.",
+                    "required": false
+                  },
+                  "media": {
+                    "type": "string",
+                    "description": "Link al video de la llamada en formato .mp4 o mp3 accesible públicamente. Samu descargara ese archivo y lo subira a nuestro servidor para procesarlo",
+                    "required": true
+                  },
+                  "users": {
+                    "type": "array",
+                    "description": "Lista de usuarios participantes en la llamada además del host. Puede ser un array vacío. Deben ser emails de usuarios registrados en samu.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "providerId": {
+                          "type": "string",
+                          "description": "ID del usuario en el provider"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nombre del usuario"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "description": "Apellido del usuario"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email del usuario"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "description": "Teléfono del usuario"
+                        }
+                      }
+                    }
+                  },
+                  "stakeholders": {
+                    "type": "array",
+                    "description": "Lista de stakeholders de la llamada. Puede ser un array vacío.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "providerId": {
+                          "type": "string",
+                          "description": "ID del stakeholder en el provider"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nombre del stakeholder"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "description": "Apellido del stakeholder"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email del stakeholder"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "description": "Teléfono del stakeholder"
+                        }
+                      }
+                    }
+                  },
+                  "transcription": {
+                    "description": "Transcripción de la llamada. De no proporcionarse, se creará de forma automática a partir del video/audio proporcionado.",
+                    "required": false,
+                    "$ref": "#/components/schemas/Transcription"
+                  },
+                  "location": {
+                    "type": "object",
+                    "description": "Ubicación geográfica de la reunión",
+                    "required": false,
+                    "properties": {
+                      "latitude": {
+                        "type": "number",
+                        "description": "Latitud de la ubicación",
+                        "example": 37.7897442
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "description": "Longitud de la ubicación",
+                        "example": -122.3998086
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Meeting creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/meeting/{id}": {
+      "put": {
+        "summary": "Actualiza una meeting existente",
+        "tags": [
+          "Meetings"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la meeting"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nombre de la llamada"
+                  },
+                  "hostEmail": {
+                    "type": "string",
+                    "description": "Email del host de la llamada. Debe ser un mail perteneciente a un usuario registrado en samu."
+                  },
+                  "stakeholders": {
+                    "type": "array",
+                    "description": "Lista de stakeholders de la llamada. Puede ser un array vacío.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "providerId": {
+                          "type": "string",
+                          "description": "ID del stakeholder en el provider"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nombre del stakeholder"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "description": "Apellido del stakeholder"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email del stakeholder"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "description": "Teléfono del stakeholder"
+                        }
+                      }
+                    }
+                  },
+                  "dateFrom": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Fecha de inicio de la llamada"
+                  },
+                  "dateTo": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Fecha de fin de la llamada. De no proporcionarse, se usará la fecha de inicio."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Meeting actualizada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtiene la información de una meeting específica",
+        "tags": [
+          "Meetings"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la meeting"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información de la meeting",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Meeting"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Meeting no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/meeting/{id}/transcription": {
+      "get": {
+        "summary": "Obtiene la transcripción de una meeting específica",
+        "tags": [
+          "Meetings"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la meeting"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transcripción de la meeting",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MeetingTranscriptionLine"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/threads": {
+      "get": {
+        "summary": "List threads (inbox)",
+        "tags": [
+          "Threads"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "provider",
+            "schema": {
+              "$ref": "#/components/schemas/ChatProvider"
+            }
+          },
+          {
+            "in": "query",
+            "name": "threadType",
+            "schema": {
+              "$ref": "#/components/schemas/ConversationThreadType"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filtra threads cuya última actividad (lastMessageAt) es >= al inicio de este día en UTC (inclusivo por día)."
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filtra threads cuya última actividad (lastMessageAt) es <= al fin de este día en UTC (inclusivo por día)."
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thread page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConversationThreadListItem"
+                      }
+                    },
+                    "nextCursor": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/threads/{threadId}": {
+      "get": {
+        "summary": "Get a single thread",
+        "tags": [
+          "Threads"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thread",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationThreadListItem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/threads/{threadId}/messages": {
+      "get": {
+        "summary": "List messages in a thread (paginated)",
+        "tags": [
+          "Threads"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "before",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Solo mensajes con sentAt >= al inicio de este día en UTC (inclusivo por día). Acota el historial de threads largos."
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Solo mensajes con sentAt <= al fin de este día en UTC (inclusivo por día)."
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConversationMessageItem"
+                      }
+                    },
+                    "nextCursor": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/threads/{threadId}/interactions": {
+      "get": {
+        "summary": "Lista las interacciones diarias de un thread (con summary y extractor)",
+        "tags": [
+          "Threads"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Solo interacciones con date >= al inicio de este día en UTC (inclusivo por día)."
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Solo interacciones con date <= al fin de este día en UTC (inclusivo por día)."
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Máximo 200"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Página de interacciones diarias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConversationInteractionItem"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "perPage": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/meetings": {
+      "get": {
+        "summary": "Obtiene un listado de meetings en un rango de fechas",
+        "tags": [
+          "Meetings"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Fecha de inicio del rango"
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Fecha de fin del rango (máximo 366 días desde dateFrom)"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 500
+            },
+            "description": "Cantidad máxima de meetings a devolver"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            },
+            "description": "Cantidad de meetings a saltear (paginación)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de meetings. El header X-Total-Count indica el total de meetings en el rango (sin paginar).",
+            "headers": {
+              "X-Total-Count": {
+                "schema": {
+                  "type": "integer"
+                },
+                "description": "Total de meetings en el rango de fechas"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Meeting"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests - Rate limit excedido"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apiKey",
+        "description": "API key de la cuenta"
+      }
+    },
+    "schemas": {
+      "Provider": {
+        "type": "string",
+        "description": "El origen de la llamada (meets, zoom, etc)",
+        "enum": [
+          "GOOGLE",
+          "HUBSPOT",
+          "MICROSOFT",
+          "ZOOM",
+          "AIRCALL",
+          "ANURA",
+          "LAYER7",
+          "OFFLINE",
+          "IVR",
+          "MOBILE"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID del usuario"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del usuario"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Indica si el usuario está habilitado"
+          },
+          "image": {
+            "type": "string",
+            "description": "Avatar del usuario"
+          },
+          "lang": {
+            "type": "string",
+            "description": "Idioma del usuario"
+          }
+        }
+      },
+      "Meeting": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID de Samu de la llamada"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre de la llamada"
+          },
+          "eventId": {
+            "type": "string",
+            "description": "ID del evento en meet/teams"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider",
+            "description": "El origen de la llamada (meets, zoom, etc)"
+          },
+          "hostEmail": {
+            "type": "string",
+            "description": "Email del host de la llamada"
+          },
+          "conferenceId": {
+            "type": "string",
+            "description": "ID de la conferencia en el provider"
+          },
+          "stakeholders": {
+            "type": "array",
+            "description": "Lista de stakeholders de la llamada. Puede ser un array vacío.",
+            "items": {
+              "type": "string",
+              "description": "ID del stakeholder en el provider"
+            }
+          },
+          "dateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de inicio de la llamada"
+          },
+          "dateTo": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de fin de la llamada"
+          },
+          "media": {
+            "type": "string",
+            "description": "Link al video de la llamada en formato .mp4 o mp3 accesible públicamente. Samu descargara ese archivo y lo subira a nuestro servidor para procesarlo"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Duración de la llamada en segundos"
+          },
+          "users": {
+            "type": "array",
+            "description": "Lista de usuarios participantes en la llamada además del host. Puede ser un array vacío.",
+            "items": {
+              "type": "string",
+              "description": "ID del usuario en el provider"
+            }
+          },
+          "score": {
+            "type": "object",
+            "properties": {
+              "evaluables": {
+                "type": "object",
+                "description": "Evaluables de la llamada"
+              },
+              "score": {
+                "type": "number",
+                "description": "Puntuación de la llamada"
+              },
+              "feedback": {
+                "type": "string"
+              }
+            }
+          },
+          "extractor": {
+            "type": "object",
+            "description": "Información extraida por Samu de la llamada"
+          },
+          "callType": {
+            "type": "object",
+            "nullable": true,
+            "description": "Tipo de llamada asignado a la reunión",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "deal": {
+            "type": "object",
+            "description": "Información de la oportunidad de la llamada en el CRM",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "ID de la oportunidad en el CRM"
+              },
+              "name": {
+                "type": "string",
+                "description": "Nombre de la oportunidad"
+              },
+              "amount": {
+                "type": "number",
+                "description": "Monto de la oportunidad"
+              },
+              "stage": {
+                "type": "string",
+                "description": "Etapa de la oportunidad"
+              }
+            }
+          }
+        }
+      },
+      "Transcription": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "ID del mensaje"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Texto del mensaje"
+                },
+                "participantId": {
+                  "type": "integer",
+                  "description": "ID del participante"
+                },
+                "startAt": {
+                  "type": "number",
+                  "description": "Fecha/hora de inicio del mensaje"
+                },
+                "endAt": {
+                  "type": "number",
+                  "description": "Fecha/hora de fin del mensaje"
+                }
+              }
+            }
+          },
+          "participants": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "description": "Nombre del participante"
+            }
+          }
+        }
+      },
+      "MeetingTranscriptionLine": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto del mensaje"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Marca de tiempo del mensaje"
+          },
+          "speaker": {
+            "type": "string",
+            "description": "Nombre del hablante"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Error message"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          }
+        }
+      },
+      "ChatProvider": {
+        "type": "string",
+        "enum": [
+          "WHATSAPP",
+          "HUBSPOT",
+          "EMAIL"
+        ]
+      },
+      "ConversationThreadType": {
+        "type": "string",
+        "enum": [
+          "dm",
+          "group"
+        ]
+      },
+      "ConversationThreadListItem": {
+        "type": "object",
+        "description": "Item del listado de conversaciones (threads)",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "object",
+            "nullable": true,
+            "description": "Datos del host (owner) del thread",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              }
+            }
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "description": "Nombre de la conversación. En grupos (threadType=group) es el nombre del grupo; en DM es el nombre del contacto."
+          },
+          "provider": {
+            "$ref": "#/components/schemas/ChatProvider"
+          },
+          "threadType": {
+            "$ref": "#/components/schemas/ConversationThreadType"
+          },
+          "lastMessageAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "mobilePhone": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConversationMessageItem": {
+        "type": "object",
+        "description": "Mensaje en el shape público (import)",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "sender": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "contact",
+                  "user",
+                  "provider_identity"
+                ]
+              },
+              "contactId": {
+                "type": "string",
+                "description": "Cruzar con thread.contacts para el nombre"
+              },
+              "userId": {
+                "type": "string"
+              }
+            }
+          },
+          "sentAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "content": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "audio",
+                  "image",
+                  "video",
+                  "document"
+                ]
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConversationInteractionItem": {
+        "type": "object",
+        "description": "Interacción diaria de un thread (snapshot del día)",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Día de la interacción"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Resumen del día (metadata.extractor.samu_longSummary ?? samu_summary)"
+          },
+          "extractor": {
+            "type": "object",
+            "description": "Props custom que Samu extrajo ese día (campos no samu_*)"
+          },
+          "actionItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "dueAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "resolvedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado del procesamiento diario (output.sync_daily_status)"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Threads",
+      "description": "Conversaciones (threads/messages/interactions) de WhatsApp y otros providers"
+    }
+  ]
+}

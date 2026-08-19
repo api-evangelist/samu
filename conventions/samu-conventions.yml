@@ -1,0 +1,110 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/samu-openapi.yml
+docs: https://api.samu.ai/docs
+note: >-
+  Derived from the OpenAPI plus live probes. Samu publishes no prose developer
+  guide — the Swagger UI at api.samu.ai/docs is the entire documentation surface —
+  so anything not visible in the spec is recorded as unknown rather than guessed.
+authentication:
+  style: static account API key in a header named "apiKey"
+  header: apiKey
+  bearer: false
+  note: >-
+    The header name is literally "apiKey" — not Authorization and not X-API-Key.
+    The MCP endpoint on the same host uses OAuth 2.1 bearer instead.
+  see: authentication/samu-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, no idempotency parameter and no idempotency
+    language anywhere in the spec or docs. This matters here: POST /api/meeting
+    creates a meeting and triggers a media download plus transcription, so a
+    retried request after a timeout will duplicate that work with no way for the
+    client to deduplicate. Callers must supply their own eventId/conferenceId and
+    reconcile out of band.
+pagination:
+  consistent: false
+  note: >-
+    THREE different pagination styles across ten operations, with no shared
+    envelope. Any client library has to special-case each surface.
+  styles:
+  - style: cursor
+    operations:
+    - GET /api/chat/threads
+    - GET /api/chat/threads/{threadId}/messages
+    request_params: [cursor, before, limit]
+    cursor_format: date-time
+    response_fields: [items, nextCursor]
+    note: >-
+      threads pages on `cursor`; messages pages on `before`. Both cursors are
+      date-times, and nextCursor is nullable to signal the end of the collection.
+  - style: page-number
+    operations:
+    - GET /api/chat/threads/{threadId}/interactions
+    request_params: [page, perPage]
+    defaults: {page: 1, perPage: 50}
+    maximum: {perPage: 200}
+    response_fields: [items, total, page, perPage]
+  - style: limit-offset
+    operations:
+    - GET /api/meetings
+    request_params: [limit, offset]
+    defaults: {limit: 500, offset: 0}
+    maximum: {limit: 500, offset: 10000}
+    response_fields: []
+    response_headers: [X-Total-Count]
+    note: >-
+      Returns a bare JSON array, not an envelope; the total lives in the
+      X-Total-Count response header. offset is capped at 10000, so the deepest
+      reachable page is item 10500 in any date range.
+filtering:
+  date_ranges:
+    params: [dateFrom, dateTo, from, to]
+    semantics: >-
+      Day-granular and inclusive — the spec states filters snap to the start/end
+      of the given day in UTC, so a time component is effectively ignored.
+    constraint: >-
+      GET /api/meetings requires both dateFrom and dateTo and caps the range at
+      366 days.
+  enums:
+    provider: [GOOGLE, HUBSPOT, MICROSOFT, ZOOM, AIRCALL, ANURA, LAYER7, OFFLINE, IVR, MOBILE]
+    chat_provider: [WHATSAPP, HUBSPOT, EMAIL]
+    thread_type: [dm, group]
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  custom_fields: true
+  note: >-
+    `extractor` is a free-form object on both Meeting and ConversationInteraction
+    carrying whatever custom properties Samu was configured to extract. Its keys
+    are account-specific and are NOT described in the spec; the interactions
+    schema notes that samu_* prefixed fields are internal and excluded.
+request_tracing:
+  request_id_header: null
+  note: No request-id or correlation header documented.
+versioning:
+  in_url: false
+  see: lifecycle/samu-lifecycle.yml
+error_envelope:
+  rest: '{status: "error", message: string}'
+  mcp: '{success: false, error: {code, message}, meta, timestamp}'
+  rfc9457: false
+  see: errors/samu-problem-types.yml
+rate_limit_signaling:
+  status_on_exhaustion: 429
+  headers: []
+  note: >-
+    A 429 is declared on GET /api/meetings only, with no schema and no documented
+    RateLimit-*/Retry-After headers.
+  see: rate-limits/samu-rate-limits.yml
+media_handling:
+  note: >-
+    POST /api/meeting takes `media` as a PUBLICLY ACCESSIBLE .mp4/.mp3 URL which
+    Samu downloads and re-hosts; it is not a file upload. Processing is
+    asynchronous — the response returns only the new meeting id and the docs state
+    the video "tardara unos minutos en ser subido", but no callback, webhook or
+    status-polling operation is published to learn when processing completed.

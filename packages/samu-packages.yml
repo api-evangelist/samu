@@ -1,0 +1,31 @@
+generated: '2026-08-13'
+method: searched
+source: registry searches on 2026-08-13
+package_count: 0
+official_package_count: 0
+packages: []
+note: >-
+  Samu publishes NO first-party client library in any language. Searched npm
+  (samu, samu-ai, samu-sdk, @samu/sdk, @samuai/sdk - all 404), PyPI (samu-ai,
+  samuai - 404), and the docs surface (api.samu.ai/docs is a bare Swagger UI with
+  no SDK section). The PyPI package named "samu" exists but is unrelated - "A
+  simple coplanar electrical channel crosstalk extractor for Samuel"
+  (github.com/das-dias/samu) - and is deliberately NOT recorded as Samu's. No
+  public GitHub organization for Samu was located. Consumers integrate by calling
+  the REST API directly with an apiKey header, or through the hosted MCP server.
+searched:
+- registry: npm
+  names: [samu, samu-ai, samu-sdk, '@samu/sdk', '@samuai/sdk']
+  result: 404
+- registry: pypi
+  names: [samu-ai, samuai]
+  result: 404
+- registry: pypi
+  names: [samu]
+  result: 200
+  rejected: true
+  reason: unrelated third-party package, not published by Samu.ai
+  version: 0.1.6
+- registry: docs
+  url: https://api.samu.ai/docs
+  result: no SDK or client-library references
