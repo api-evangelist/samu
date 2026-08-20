@@ -54,6 +54,20 @@ tags:
 - Transcription
 - WhatsApp
 - MCP
+- agent-native
+tags_raw:
+- Company
+- Artificial Intelligence
+- Sales
+- Sales Intelligence
+- Conversation Intelligence
+- CRM
+- Call Recording
+- Analytics
+- Latin America
+- Transcription
+- WhatsApp
+- MCP
 - Agent Native
 apis:
 - name: API Samu
@@ -106,6 +120,11 @@ apis:
   humanURL: https://samu.ai/precios
   baseURL: https://api.samu.ai/mcp
   tags:
+  - MCP
+  - agent-native
+  - Conversation Intelligence
+  - Sales Intelligence
+  tags_raw:
   - MCP
   - Agent Native
   - Conversation Intelligence
