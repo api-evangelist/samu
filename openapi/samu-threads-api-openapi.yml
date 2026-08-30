@@ -1,0 +1,348 @@
+openapi: 3.2.0
+info:
+  title: Samu Threads API
+  version: 1.0.1
+  description: Documentación de la API de Samu.ai
+servers:
+- url: https://api.samu.ai
+tags:
+- name: Threads
+  description: Conversaciones (threads/messages/interactions) de WhatsApp y otros providers
+paths:
+  /api/chat/threads:
+    get:
+      summary: List threads (inbox)
+      tags:
+      - Threads
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - in: query
+        name: provider
+        schema:
+          $ref: '#/components/schemas/ChatProvider'
+      - in: query
+        name: threadType
+        schema:
+          $ref: '#/components/schemas/ConversationThreadType'
+      - in: query
+        name: dateFrom
+        schema:
+          type: string
+          format: date-time
+        description: Filtra threads cuya última actividad (lastMessageAt) es >= al inicio de este día en UTC (inclusivo por día).
+      - in: query
+        name: dateTo
+        schema:
+          type: string
+          format: date-time
+        description: Filtra threads cuya última actividad (lastMessageAt) es <= al fin de este día en UTC (inclusivo por día).
+      - in: query
+        name: cursor
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Thread page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConversationThreadListItem'
+                  nextCursor:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+  /api/chat/threads/{threadId}:
+    get:
+      summary: Get a single thread
+      tags:
+      - Threads
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - in: path
+        name: threadId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Thread
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationThreadListItem'
+  /api/chat/threads/{threadId}/messages:
+    get:
+      summary: List messages in a thread (paginated)
+      tags:
+      - Threads
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - in: path
+        name: threadId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: from
+        schema:
+          type: string
+          format: date-time
+        description: Solo mensajes con sentAt >= al inicio de este día en UTC (inclusivo por día). Acota el historial de threads largos.
+      - in: query
+        name: to
+        schema:
+          type: string
+          format: date-time
+        description: Solo mensajes con sentAt <= al fin de este día en UTC (inclusivo por día).
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Message page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConversationMessageItem'
+                  nextCursor:
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+  /api/chat/threads/{threadId}/interactions:
+    get:
+      summary: Lista las interacciones diarias de un thread (con summary y extractor)
+      tags:
+      - Threads
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - in: path
+        name: threadId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: from
+        schema:
+          type: string
+          format: date-time
+        description: Solo interacciones con date >= al inicio de este día en UTC (inclusivo por día).
+      - in: query
+        name: to
+        schema:
+          type: string
+          format: date-time
+        description: Solo interacciones con date <= al fin de este día en UTC (inclusivo por día).
+      - in: query
+        name: page
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: perPage
+        schema:
+          type: integer
+          default: 50
+        description: Máximo 200
+      responses:
+        '200':
+          description: Página de interacciones diarias
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConversationInteractionItem'
+                  total:
+                    type: integer
+                  page:
+                    type: integer
+                  perPage:
+                    type: integer
+components:
+  schemas:
+    ConversationThreadType:
+      type: string
+      enum:
+      - dm
+      - group
+    ConversationThreadListItem:
+      type: object
+      description: Item del listado de conversaciones (threads)
+      properties:
+        id:
+          type: string
+        owner:
+          type:
+          - object
+          - 'null'
+          description: Datos del host (owner) del thread
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+            name:
+              type: string
+            lastName:
+              type: string
+        title:
+          type:
+          - string
+          - 'null'
+          description: Nombre de la conversación. En grupos (threadType=group) es el nombre del grupo; en DM es el nombre del contacto.
+        provider:
+          $ref: '#/components/schemas/ChatProvider'
+        threadType:
+          $ref: '#/components/schemas/ConversationThreadType'
+        lastMessageAt:
+          type: string
+          format: date-time
+        contacts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              lastName:
+                type: string
+              phone:
+                type: string
+              mobilePhone:
+                type: string
+              email:
+                type: string
+    ConversationMessageItem:
+      type: object
+      description: Mensaje en el shape público (import)
+      properties:
+        id:
+          type: string
+        direction:
+          type: string
+          enum:
+          - inbound
+          - outbound
+        sender:
+          type: object
+          properties:
+            kind:
+              type: string
+              enum:
+              - contact
+              - user
+              - provider_identity
+            contactId:
+              type: string
+              description: Cruzar con thread.contacts para el nombre
+            userId:
+              type: string
+        sentAt:
+          type: string
+          format: date-time
+        content:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - text
+              - audio
+              - image
+              - video
+              - document
+            text:
+              type: string
+        attachments:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              filename:
+                type: string
+              mime:
+                type: string
+              size:
+                type: number
+    ChatProvider:
+      type: string
+      enum:
+      - WHATSAPP
+      - HUBSPOT
+      - EMAIL
+    ConversationInteractionItem:
+      type: object
+      description: Interacción diaria de un thread (snapshot del día)
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date-time
+          description: Día de la interacción
+        summary:
+          type: string
+          description: Resumen del día (metadata.extractor.samu_longSummary ?? samu_summary)
+        extractor:
+          type: object
+          description: Props custom que Samu extrajo ese día (campos no samu_*)
+        actionItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              description:
+                type: string
+              status:
+                type: string
+              dueAt:
+                type: string
+                format: date-time
+              resolvedAt:
+                type: string
+                format: date-time
+        status:
+          type: string
+          description: Estado del procesamiento diario (output.sync_daily_status)
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+      description: API key de la cuenta

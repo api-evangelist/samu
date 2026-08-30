@@ -1,0 +1,70 @@
+openapi: 3.2.0
+info:
+  title: Samu Usuarios API
+  version: 1.0.1
+  description: Documentación de la API de Samu.ai
+servers:
+- url: https://api.samu.ai
+tags:
+- name: Usuarios
+paths:
+  /api/users:
+    get:
+      summary: Obtiene la lista de usuarios para la cuenta
+      tags:
+      - Usuarios
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Error en la solicitud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del usuario
+        name:
+          type: string
+          description: Nombre del usuario
+        email:
+          type: string
+          description: Email del usuario
+        enabled:
+          type: boolean
+          description: Indica si el usuario está habilitado
+        image:
+          type: string
+          description: Avatar del usuario
+        lang:
+          type: string
+          description: Idioma del usuario
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: Error message
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+      description: API key de la cuenta
