@@ -10,7 +10,7 @@ tags:
 paths:
   /api/meeting:
     post:
-      summary: Crea una nueva meeting a partir de la información de la llamada proporcionada. El video tardara unos minutos en ser subido. Se devuelve el id de la nueva meeting.
+      summary: Crea una nueva meeting a partir de la información de la llamada proporcionada.
       tags:
       - Meetings
       security:
@@ -125,6 +125,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: postApiMeeting
+      x-operation-id-source: derived
   /api/meeting/{id}:
     put:
       summary: Actualiza una meeting existente
@@ -194,6 +196,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: putApiMeetingById
+      x-operation-id-source: derived
     get:
       summary: Obtiene la información de una meeting específica
       tags:
@@ -226,6 +230,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: getApiMeetingById
+      x-operation-id-source: derived
   /api/meeting/{id}/transcription:
     get:
       summary: Obtiene la transcripción de una meeting específica
@@ -255,6 +261,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: getApiMeetingByIdTranscription
+      x-operation-id-source: derived
   /api/meetings:
     get:
       summary: Obtiene un listado de meetings en un rango de fechas
@@ -317,6 +325,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '429':
           description: Too Many Requests - Rate limit excedido
+      operationId: getApiMeetings
+      x-operation-id-source: derived
 components:
   schemas:
     MeetingTranscriptionLine:
@@ -332,12 +342,6 @@ components:
         speaker:
           type: string
           description: Nombre del hablante
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ok
     Provider:
       type: string
       description: El origen de la llamada (meets, zoom, etc)
@@ -352,15 +356,6 @@ components:
       - OFFLINE
       - IVR
       - MOBILE
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
-          example: Error message
     Meeting:
       type: object
       properties:
@@ -448,6 +443,15 @@ components:
             stage:
               type: string
               description: Etapa de la oportunidad
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: Error message
     Transcription:
       type: object
       properties:
@@ -476,6 +480,12 @@ components:
           additionalProperties:
             type: string
             description: Nombre del participante
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

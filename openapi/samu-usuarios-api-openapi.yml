@@ -30,8 +30,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: getApiUsers
+      x-operation-id-source: derived
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: Error message
     User:
       type: object
       properties:
@@ -53,15 +64,6 @@ components:
         lang:
           type: string
           description: Idioma del usuario
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
-          example: Error message
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
