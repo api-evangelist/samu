@@ -198,11 +198,55 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ConversationThreadType:
-      type: string
-      enum:
-      - dm
-      - group
+    ConversationThreadListItem:
+      type: object
+      description: Item del listado de conversaciones (threads)
+      properties:
+        id:
+          type: string
+        owner:
+          type:
+          - object
+          - 'null'
+          description: Datos del host (owner) del thread
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+            name:
+              type: string
+            lastName:
+              type: string
+        title:
+          type:
+          - string
+          - 'null'
+          description: Nombre de la conversación. En grupos (threadType=group) es el nombre del grupo; en DM es el nombre del contacto.
+        provider:
+          $ref: '#/components/schemas/ChatProvider'
+        threadType:
+          $ref: '#/components/schemas/ConversationThreadType'
+        lastMessageAt:
+          type: string
+          format: date-time
+        contacts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              lastName:
+                type: string
+              phone:
+                type: string
+              mobilePhone:
+                type: string
+              email:
+                type: string
     ConversationMessageItem:
       type: object
       description: Mensaje en el shape público (import)
@@ -257,61 +301,6 @@ components:
                 type: string
               size:
                 type: number
-    ChatProvider:
-      type: string
-      enum:
-      - WHATSAPP
-      - HUBSPOT
-      - EMAIL
-    ConversationThreadListItem:
-      type: object
-      description: Item del listado de conversaciones (threads)
-      properties:
-        id:
-          type: string
-        owner:
-          type:
-          - object
-          - 'null'
-          description: Datos del host (owner) del thread
-          properties:
-            id:
-              type: string
-            email:
-              type: string
-            name:
-              type: string
-            lastName:
-              type: string
-        title:
-          type:
-          - string
-          - 'null'
-          description: Nombre de la conversación. En grupos (threadType=group) es el nombre del grupo; en DM es el nombre del contacto.
-        provider:
-          $ref: '#/components/schemas/ChatProvider'
-        threadType:
-          $ref: '#/components/schemas/ConversationThreadType'
-        lastMessageAt:
-          type: string
-          format: date-time
-        contacts:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              lastName:
-                type: string
-              phone:
-                type: string
-              mobilePhone:
-                type: string
-              email:
-                type: string
     ConversationInteractionItem:
       type: object
       description: Interacción diaria de un thread (snapshot del día)
@@ -348,6 +337,17 @@ components:
         status:
           type: string
           description: Estado del procesamiento diario (output.sync_daily_status)
+    ConversationThreadType:
+      type: string
+      enum:
+      - dm
+      - group
+    ChatProvider:
+      type: string
+      enum:
+      - WHATSAPP
+      - HUBSPOT
+      - EMAIL
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
