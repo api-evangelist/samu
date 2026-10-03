@@ -329,15 +329,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ErrorResponse:
+    SuccessResponse:
       type: object
       properties:
         status:
           type: string
-          example: error
-        message:
-          type: string
-          example: Error message
+          example: ok
     Meeting:
       type: object
       properties:
@@ -425,6 +422,42 @@ components:
             stage:
               type: string
               description: Etapa de la oportunidad
+    Provider:
+      type: string
+      description: El origen de la llamada (meets, zoom, etc)
+      enum:
+      - GOOGLE
+      - HUBSPOT
+      - MICROSOFT
+      - ZOOM
+      - AIRCALL
+      - ANURA
+      - LAYER7
+      - OFFLINE
+      - IVR
+      - MOBILE
+    MeetingTranscriptionLine:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Texto del mensaje
+        date:
+          type: string
+          format: date-time
+          description: Marca de tiempo del mensaje
+        speaker:
+          type: string
+          description: Nombre del hablante
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: Error message
     Transcription:
       type: object
       properties:
@@ -453,39 +486,6 @@ components:
           additionalProperties:
             type: string
             description: Nombre del participante
-    MeetingTranscriptionLine:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Texto del mensaje
-        date:
-          type: string
-          format: date-time
-          description: Marca de tiempo del mensaje
-        speaker:
-          type: string
-          description: Nombre del hablante
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ok
-    Provider:
-      type: string
-      description: El origen de la llamada (meets, zoom, etc)
-      enum:
-      - GOOGLE
-      - HUBSPOT
-      - MICROSOFT
-      - ZOOM
-      - AIRCALL
-      - ANURA
-      - LAYER7
-      - OFFLINE
-      - IVR
-      - MOBILE
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

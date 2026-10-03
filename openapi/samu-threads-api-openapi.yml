@@ -247,6 +247,17 @@ components:
                 type: string
               email:
                 type: string
+    ChatProvider:
+      type: string
+      enum:
+      - WHATSAPP
+      - HUBSPOT
+      - EMAIL
+    ConversationThreadType:
+      type: string
+      enum:
+      - dm
+      - group
     ConversationMessageItem:
       type: object
       description: Mensaje en el shape público (import)
@@ -337,17 +348,6 @@ components:
         status:
           type: string
           description: Estado del procesamiento diario (output.sync_daily_status)
-    ConversationThreadType:
-      type: string
-      enum:
-      - dm
-      - group
-    ChatProvider:
-      type: string
-      enum:
-      - WHATSAPP
-      - HUBSPOT
-      - EMAIL
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
