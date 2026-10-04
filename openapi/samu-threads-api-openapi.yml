@@ -198,66 +198,53 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ConversationThreadListItem:
+    ConversationThreadType:
+      type: string
+      enum:
+      - dm
+      - group
+    ConversationInteractionItem:
       type: object
-      description: Item del listado de conversaciones (threads)
+      description: Interacción diaria de un thread (snapshot del día)
       properties:
         id:
           type: string
-        owner:
-          type:
-          - object
-          - 'null'
-          description: Datos del host (owner) del thread
-          properties:
-            id:
-              type: string
-            email:
-              type: string
-            name:
-              type: string
-            lastName:
-              type: string
-        title:
-          type:
-          - string
-          - 'null'
-          description: Nombre de la conversación. En grupos (threadType=group) es el nombre del grupo; en DM es el nombre del contacto.
-        provider:
-          $ref: '#/components/schemas/ChatProvider'
-        threadType:
-          $ref: '#/components/schemas/ConversationThreadType'
-        lastMessageAt:
+        date:
           type: string
           format: date-time
-        contacts:
+          description: Día de la interacción
+        summary:
+          type: string
+          description: Resumen del día (metadata.extractor.samu_longSummary ?? samu_summary)
+        extractor:
+          type: object
+          description: Props custom que Samu extrajo ese día (campos no samu_*)
+        actionItems:
           type: array
           items:
             type: object
             properties:
               id:
                 type: string
-              name:
+              description:
                 type: string
-              lastName:
+              status:
                 type: string
-              phone:
+              dueAt:
                 type: string
-              mobilePhone:
+                format: date-time
+              resolvedAt:
                 type: string
-              email:
-                type: string
+                format: date-time
+        status:
+          type: string
+          description: Estado del procesamiento diario (output.sync_daily_status)
     ChatProvider:
       type: string
       enum:
       - WHATSAPP
       - HUBSPOT
       - EMAIL
-    ConversationThreadType:
-      type: string
-      enum:
-      - dm
-      - group
     ConversationMessageItem:
       type: object
       description: Mensaje en el shape público (import)
@@ -312,42 +299,55 @@ components:
                 type: string
               size:
                 type: number
-    ConversationInteractionItem:
+    ConversationThreadListItem:
       type: object
-      description: Interacción diaria de un thread (snapshot del día)
+      description: Item del listado de conversaciones (threads)
       properties:
         id:
           type: string
-        date:
+        owner:
+          type:
+          - object
+          - 'null'
+          description: Datos del host (owner) del thread
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+            name:
+              type: string
+            lastName:
+              type: string
+        title:
+          type:
+          - string
+          - 'null'
+          description: Nombre de la conversación. En grupos (threadType=group) es el nombre del grupo; en DM es el nombre del contacto.
+        provider:
+          $ref: '#/components/schemas/ChatProvider'
+        threadType:
+          $ref: '#/components/schemas/ConversationThreadType'
+        lastMessageAt:
           type: string
           format: date-time
-          description: Día de la interacción
-        summary:
-          type: string
-          description: Resumen del día (metadata.extractor.samu_longSummary ?? samu_summary)
-        extractor:
-          type: object
-          description: Props custom que Samu extrajo ese día (campos no samu_*)
-        actionItems:
+        contacts:
           type: array
           items:
             type: object
             properties:
               id:
                 type: string
-              description:
+              name:
                 type: string
-              status:
+              lastName:
                 type: string
-              dueAt:
+              phone:
                 type: string
-                format: date-time
-              resolvedAt:
+              mobilePhone:
                 type: string
-                format: date-time
-        status:
-          type: string
-          description: Estado del procesamiento diario (output.sync_daily_status)
+              email:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

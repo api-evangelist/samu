@@ -329,12 +329,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ok
     Meeting:
       type: object
       properties:
@@ -436,28 +430,6 @@ components:
       - OFFLINE
       - IVR
       - MOBILE
-    MeetingTranscriptionLine:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Texto del mensaje
-        date:
-          type: string
-          format: date-time
-          description: Marca de tiempo del mensaje
-        speaker:
-          type: string
-          description: Nombre del hablante
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
-          example: Error message
     Transcription:
       type: object
       properties:
@@ -486,6 +458,34 @@ components:
           additionalProperties:
             type: string
             description: Nombre del participante
+    MeetingTranscriptionLine:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Texto del mensaje
+        date:
+          type: string
+          format: date-time
+          description: Marca de tiempo del mensaje
+        speaker:
+          type: string
+          description: Nombre del hablante
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: Error message
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
