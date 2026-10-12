@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/samu/integrations
+- https://n8n.io/integrations/samu/
+- https://composio.dev/toolkits/samu
+- https://monid.ai/tools/samu
+checked:
+- https://composio.dev/toolkits/samu
+- https://monid.ai/tools/samu
+- https://n8n.io/integrations/samu/
+- https://zapier.com/apps/samu/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
