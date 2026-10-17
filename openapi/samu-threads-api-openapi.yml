@@ -198,11 +198,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ConversationThreadType:
-      type: string
-      enum:
-      - dm
-      - group
     ConversationInteractionItem:
       type: object
       description: Interacción diaria de un thread (snapshot del día)
@@ -299,6 +294,11 @@ components:
                 type: string
               size:
                 type: number
+    ConversationThreadType:
+      type: string
+      enum:
+      - dm
+      - group
     ConversationThreadListItem:
       type: object
       description: Item del listado de conversaciones (threads)

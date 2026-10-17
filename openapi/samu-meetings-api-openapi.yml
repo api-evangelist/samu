@@ -329,6 +329,49 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: Error message
+    Transcription:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID del mensaje
+              text:
+                type: string
+                description: Texto del mensaje
+              participantId:
+                type: integer
+                description: ID del participante
+              startAt:
+                type: number
+                description: Fecha/hora de inicio del mensaje
+              endAt:
+                type: number
+                description: Fecha/hora de fin del mensaje
+        participants:
+          type: object
+          additionalProperties:
+            type: string
+            description: Nombre del participante
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
     Meeting:
       type: object
       properties:
@@ -430,34 +473,6 @@ components:
       - OFFLINE
       - IVR
       - MOBILE
-    Transcription:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: ID del mensaje
-              text:
-                type: string
-                description: Texto del mensaje
-              participantId:
-                type: integer
-                description: ID del participante
-              startAt:
-                type: number
-                description: Fecha/hora de inicio del mensaje
-              endAt:
-                type: number
-                description: Fecha/hora de fin del mensaje
-        participants:
-          type: object
-          additionalProperties:
-            type: string
-            description: Nombre del participante
     MeetingTranscriptionLine:
       type: object
       properties:
@@ -471,21 +486,6 @@ components:
         speaker:
           type: string
           description: Nombre del hablante
-    SuccessResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ok
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
-          example: Error message
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
