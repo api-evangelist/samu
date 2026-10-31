@@ -64,6 +64,142 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Samu is a company surfaced as a portfolio company of 500-global and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Samu (samu.ai) is an AI-powered conversation-intelligence and sales-analytics platform built for sales managers and revenue leaders across Latin America. It automatically records and transcribes customer interactions across WhatsApp, phone calls, video calls, Microsoft Teams, and Google Meet, then analyzes them to surface actionable coaching insights. Features include an AI "Samu Score" that evaluates call quality against customizable criteria, custom data extractors (e.g. competitor mentions or company size), analysis using SPICED, BANT, and SANDLER sales frameworks, and auto-generated CRM notes, tasks, and meeting summaries. Samu integrates bidirectionally with HubSpot, Pipedrive, Salesforce, and other CRMs, and emphasizes high-accuracy Spanish-language transcription. Samu publishes a REST API (OpenAPI 3.0.0, "API Samu") at api.samu.ai covering users, meetings, transcriptions and WhatsApp/chat threads, authenticated with an account apiKey header, plus an OAuth-protected hosted MCP server at api.samu.ai/mcp that connects Samu to Claude, ChatGPT and other AI agents. API access is sold on the Enterprise plan and MCP on the Pro plan. Samu is backed by 500 Global.
 
-Backed by: 500-global — https://samu.ai
+**Areas:** Company · Artificial Intelligence · Sales · Sales Intelligence · Conversation Intelligence · CRM · Call Recording · Analytics · Latin America · Transcription · WhatsApp · MCP
+
+## Samu on APIs.io
+
+Everything profiled for Samu is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/samu/](https://apis.io/providers/samu/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Samu MCP Server](https://apis.io/apis/samu/samu-mcp-server/) — Hosted, remote MCP server that connects Samu to Claude, ChatGPT and other AI agents, published as a Pro-plan feature. The endpoint answers MCP JSON-RPC over…
+- [Samu Meetings API](https://apis.io/apis/samu/samu-meetings-api/) — The Meetings API from Samu — 4 operation(s) for meetings.
+- [Samu Threads API](https://apis.io/apis/samu/samu-threads-api/) — Conversaciones (threads/messages/interactions) de WhatsApp y otros providers
+- [Samu Usuarios API](https://apis.io/apis/samu/samu-usuarios-api/) — The Usuarios API from Samu — 1 operation(s) for usuarios.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [samu](https://apis.io/servers/samu/samu/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Samu Agentic Access](https://apis.io/agentic-access/samu/samu-agentic-access/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [API Samu](https://apis.io/collections/samu/open-samu/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Samu Openapi Overlay](https://apis.io/overlays/samu/samu-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Samu Authentication](https://apis.io/security/samu/samu-authentication/)
+- [Samu Domain Security](https://apis.io/security/samu/samu-domain-security/)
+- [Samu Vulnerability Disclosure](https://apis.io/security/samu/samu-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Samu Scopes](https://apis.io/scopes/samu/samu-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Samu Plans Pricing](https://apis.io/plans/samu/samu-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Samu Rate Limits](https://apis.io/rate-limits/samu/samu-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://samu.ai)
+- [Documentation](https://api.samu.ai/docs)
+- [API reference](https://api.samu.ai/docs)
+- [Pricing](https://samu.ai/precios)
+- [Sign up](https://samu.ai/solicitar-una-demo)
+- [Blog](https://www.samu.ai/blog)
+- [Security](https://samu.ai/politica-de-seguridad-y-manejo-de-informacion)
+- [Compliance](https://samu.ai/politica-de-seguridad-y-manejo-de-informacion)
+- [Terms of service](https://samu.ai/terminos-y-condiciones)
+- [Privacy policy](https://samu.ai/privacy)
+- [Status](https://status.samu.ai/)
+
+## API Evangelist rating
+
+**Kin Score 49.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 44.7 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 32.7 |
+| Access clarity | 84.2 |
+
+**Agent readiness 47.9** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 41.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/samu/](https://apis.io/providers/samu/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Samu: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/samu/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
